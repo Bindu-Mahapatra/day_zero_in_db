@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/trainings/trainings.component.scss"],
+  "sourcesContent": [".training-list { margin-top: 22px; }\n.training-row { display: grid; grid-template-columns: 48px 1fr auto auto; align-items: center; gap: 14px; padding: 16px; border: 1px solid var(--db-border); border-radius: 16px; margin-bottom: 12px; }\n.training-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px; background: var(--db-purple-light); }\np { margin: 4px 0 0; color: var(--db-muted); }\n@media (max-width: 800px) { .training-row { grid-template-columns: 48px 1fr; } }\n"],
+  "mappings": ";AAAA,CAAA;AAAiB,cAAA;;AACjB,CAAA;AAAgB,WAAA;AAAe,yBAAA,KAAA,IAAA,KAAA;AAA2C,eAAA;AAAqB,OAAA;AAAW,WAAA;AAAe,UAAA,IAAA,MAAA,IAAA;AAAoC,iBAAA;AAAqB,iBAAA;;AAClL,CAAA;AAAiB,SAAA;AAAa,UAAA;AAAc,WAAA;AAAe,eAAA;AAAqB,iBAAA;AAAqB,cAAA,IAAA;;AACrG;AAAI,UAAA,IAAA,EAAA;AAAiB,SAAA,IAAA;;AACrB,QAAA,WAAA;AAA4B,GAH5B;AAG4C,2BAAA,KAAA;;;",
+  "names": []
+}

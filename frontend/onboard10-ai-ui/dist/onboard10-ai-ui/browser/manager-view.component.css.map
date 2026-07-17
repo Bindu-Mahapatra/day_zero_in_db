@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/manager-view/manager-view.component.scss"],
+  "sourcesContent": [".page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }\n.kpis { margin-bottom: 18px; }\n.manager-grid { grid-template-columns: 1.7fr 1fr; }\n.approvals { overflow-x: auto; }\ntd small { color: var(--db-muted); }\ntd .btn { padding: 7px 10px; margin: 2px; font-size: 12px; }\n.ai-card p { color: var(--db-muted); line-height: 1.6; }\n.ai-card li { margin: 12px 0; }\n@media (max-width: 1100px) { .manager-grid { grid-template-columns: 1fr; } }\n"],
+  "mappings": ";AAAA,CAAA;AAAa,WAAA;AAAe,eAAA;AAAqB,mBAAA;AAAgC,iBAAA;;AACjF,CAAA;AAAQ,iBAAA;;AACR,CAAA;AAAgB,yBAAA,MAAA;;AAChB,CAAA;AAAa,cAAA;;AACb,GAAA;AAAW,SAAA,IAAA;;AACX,GAAA,CAAA;AAAU,WAAA,IAAA;AAAmB,UAAA;AAAa,aAAA;;AAC1C,CAAA,QAAA;AAAa,SAAA,IAAA;AAAwB,eAAA;;AACrC,CADA,QACA;AAAc,UAAA,KAAA;;AACd,QAAA,WAAA;AAA6B,GAN7B;AAM6C,2BAAA;;;",
+  "names": []
+}

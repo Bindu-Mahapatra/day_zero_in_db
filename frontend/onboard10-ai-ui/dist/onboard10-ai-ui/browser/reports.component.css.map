@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/reports/reports.component.scss"],
+  "sourcesContent": [".card { margin-top: 22px; }\n.activity-row { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--db-border); }\n.activity-row span { color: var(--db-blue); font-weight: 800; text-transform: capitalize; }\np { color: var(--db-muted); margin: 4px 0; }\nsmall { color: var(--db-muted); }\n"],
+  "mappings": ";AAAA,CAAA;AAAQ,cAAA;;AACR,CAAA;AAAgB,WAAA;AAAe,yBAAA,MAAA;AAAkC,OAAA;AAAW,WAAA,KAAA;AAAiB,iBAAA,IAAA,MAAA,IAAA;;AAC7F,CADA,aACA;AAAqB,SAAA,IAAA;AAAuB,eAAA;AAAkB,kBAAA;;AAC9D;AAAI,SAAA,IAAA;AAAwB,UAAA,IAAA;;AAC5B;AAAQ,SAAA,IAAA;;",
+  "names": []
+}

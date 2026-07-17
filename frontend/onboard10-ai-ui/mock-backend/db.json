@@ -1,0 +1,151 @@
+{
+  "profiles": [
+    {
+      "profileId": "profile-101",
+      "fullName": "John Smith",
+      "role": "Developer",
+      "team": "GEMU Squad",
+      "application": "Trading Portal",
+      "location": "Pune, India",
+      "manager": "Priya Sharma",
+      "managerEmail": "priya.sharma@db.com",
+      "employmentType": "Permanent",
+      "startDate": "12 May 2025"
+    }
+  ],
+  "readiness": {
+    "profileId": "profile-101",
+    "overall": 73,
+    "training": 80,
+    "access": 60,
+    "compliance": 70,
+    "documentation": 90,
+    "teamOnboarding": 70,
+    "blockers": [
+      "GitHub access approval pending",
+      "Production access justification missing"
+    ]
+  },
+  "missingInfo": [
+    {
+      "id": "prod-justification",
+      "title": "Production access justification missing",
+      "description": "Business justification is mandatory before production access can be reviewed.",
+      "severity": "High",
+      "owner": "Manager",
+      "resolved": false
+    },
+    {
+      "id": "access-reviewer",
+      "title": "Access reviewer not assigned",
+      "description": "Assign an access reviewer to validate GitHub and application access.",
+      "severity": "Medium",
+      "owner": "Manager",
+      "resolved": false
+    },
+    {
+      "id": "security-training-preference",
+      "title": "Security training preference missing",
+      "description": "Select a training schedule or preferred learning window.",
+      "severity": "Low",
+      "owner": "Joiner",
+      "resolved": false
+    },
+    {
+      "id": "cost-center",
+      "title": "Cost center pending validation",
+      "description": "Cost center was extracted but awaits finance-system confirmation.",
+      "severity": "Low",
+      "owner": "System",
+      "resolved": false
+    }
+  ],
+  "accessRequests": [
+    {
+      "id": "ar-1",
+      "system": "GitHub",
+      "accessType": "Repository write & org access",
+      "status": "In Progress",
+      "requestedOn": "12 May 2025",
+      "riskLevel": "Medium",
+      "requestedBy": "John Smith",
+      "recommendedAction": "Approve",
+      "justification": "Required for developer onboarding."
+    },
+    {
+      "id": "ar-2",
+      "system": "JIRA",
+      "accessType": "Project access",
+      "status": "Approved",
+      "requestedOn": "11 May 2025",
+      "riskLevel": "Low",
+      "requestedBy": "John Smith",
+      "recommendedAction": "Approve"
+    },
+    {
+      "id": "ar-3",
+      "system": "Confluence",
+      "accessType": "Space access",
+      "status": "Pending",
+      "requestedOn": "12 May 2025",
+      "riskLevel": "Low",
+      "requestedBy": "John Smith",
+      "recommendedAction": "Approve"
+    },
+    {
+      "id": "ar-4",
+      "system": "Prod Kubernetes",
+      "accessType": "Admin access",
+      "status": "Pending",
+      "requestedOn": "12 May 2025",
+      "riskLevel": "High",
+      "requestedBy": "John Smith",
+      "recommendedAction": "Request Info",
+      "justification": ""
+    },
+    {
+      "id": "ar-5",
+      "system": "ServiceNow",
+      "accessType": "Application access",
+      "status": "Approved",
+      "requestedOn": "10 May 2025",
+      "riskLevel": "Low",
+      "requestedBy": "John Smith",
+      "recommendedAction": "Approve"
+    }
+  ],
+  "trainings": [
+    {
+      "id": "tr-1",
+      "title": "Secure SDLC Training",
+      "type": "Mandatory",
+      "duration": "2h 30m",
+      "status": "Completed",
+      "dueDate": "12 May 2025"
+    },
+    {
+      "id": "tr-2",
+      "title": "Data Privacy & Protection",
+      "type": "Mandatory",
+      "duration": "1h 15m",
+      "status": "Pending",
+      "dueDate": "18 May 2025"
+    },
+    {
+      "id": "tr-3",
+      "title": "Information Security Awareness",
+      "type": "Mandatory",
+      "duration": "1h",
+      "status": "Completed",
+      "dueDate": "12 May 2025"
+    },
+    {
+      "id": "tr-4",
+      "title": "GitHub Advanced Security",
+      "type": "Recommended",
+      "duration": "1h 45m",
+      "status": "In Progress",
+      "dueDate": "20 May 2025"
+    }
+  ]
+}

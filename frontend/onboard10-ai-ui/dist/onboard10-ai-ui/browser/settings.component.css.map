@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/settings/settings.component.scss"],
+  "sourcesContent": [".settings-grid { display: grid; gap: 16px; max-width: 560px; margin-top: 22px; }\nlabel { display: flex; gap: 10px; align-items: center; }\n"],
+  "mappings": ";AAAA,CAAA;AAAiB,WAAA;AAAe,OAAA;AAAW,aAAA;AAAkB,cAAA;;AAC7D;AAAQ,WAAA;AAAe,OAAA;AAAW,eAAA;;",
+  "names": []
+}

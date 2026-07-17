@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/help-support/help-support.component.scss"],
+  "sourcesContent": [".cards { margin: 22px 0; }\np { color: var(--db-muted); }\n"],
+  "mappings": ";AAAA,CAAA;AAAS,UAAA,KAAA;;AACT;AAAI,SAAA,IAAA;;",
+  "names": []
+}

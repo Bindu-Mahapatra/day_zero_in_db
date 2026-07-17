@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/access-requests/access-requests.component.scss"],
+  "sourcesContent": [".page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }\n.card { overflow-x: auto; }\n"],
+  "mappings": ";AAAA,CAAA;AAAa,WAAA;AAAe,eAAA;AAAqB,mBAAA;AAAgC,iBAAA;;AACjF,CAAA;AAAQ,cAAA;;",
+  "names": []
+}
