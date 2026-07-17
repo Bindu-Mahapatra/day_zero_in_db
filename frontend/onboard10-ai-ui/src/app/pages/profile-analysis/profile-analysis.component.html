@@ -1,0 +1,65 @@
+<div class="page-head">
+  <div>
+    <h1 class="page-title">Joiner Profile Analysis</h1>
+    <p class="page-subtitle">AI extracts and validates onboarding information from joiner documents.</p>
+  </div>
+  <button class="btn btn-primary" (click)="analyseProfile()">Analyse Profile</button>
+</div>
+
+<div class="grid grid-2">
+  <section class="card card-pad upload-card">
+    <h3>Upload Joiner Document</h3>
+    <p>Upload offer letter, HR profile, PDF, DOCX or onboarding form.</p>
+    <div class="drop-zone">
+      <div class="upload-icon">⇧</div>
+      <strong>Drag & drop files here</strong>
+      <span>or</span>
+      <button class="btn">Browse Files</button>
+      <small>Supports: PDF, DOCX, XLSX, JPG, PNG · Max size: 10MB</small>
+    </div>
+  </section>
+
+  <section class="card card-pad">
+    <div class="section-title">
+      <h3>Extracted Profile</h3>
+      <span class="status-badge status-completed">Confidence: {{ state().profileConfidence }}%</span>
+    </div>
+    <div class="field-list">
+      @for (field of state().extractedFields; track field.label) {
+        <div class="field-row">
+          <div>
+            <strong>{{ field.label }}</strong>
+            <small>{{ field.source }}</small>
+          </div>
+          <span>{{ field.value }}</span>
+          <em>{{ field.confidence }}%</em>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card card-pad missing-card">
+    <h3>Missing Information</h3>
+    @for (item of state().missingInformation; track item.id) {
+      <div class="missing-row" [class.resolved]="item.resolved">
+        <span>{{ item.resolved ? '✅' : '⚠️' }}</span>
+        <div>
+          <strong>{{ item.title }}</strong>
+          <p>{{ item.description }}</p>
+        </div>
+        <span class="risk-badge" [class.risk-high]="item.severity === 'High'" [class.risk-medium]="item.severity === 'Medium'" [class.risk-low]="item.severity === 'Low'">{{ item.severity }}</span>
+      </div>
+    }
+  </section>
+
+  <section class="ai-card">
+    <div class="ai-label">✦ AI Insight</div>
+    <h3>Developer onboarding path recommended</h3>
+    <p>Based on the profile, I recommend a developer onboarding path. Production access is not part of the baseline role and requires elevated approval.</p>
+    <ul>
+      <li>Role: Developer</li>
+      <li>Location: Pune</li>
+      <li>Risk control: Human approval for privileged access</li>
+    </ul>
+  </section>
+</div>

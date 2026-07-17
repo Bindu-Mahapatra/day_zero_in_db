@@ -1,0 +1,5 @@
+.card { margin-top: 22px; }
+.activity-row { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--db-border); }
+.activity-row span { color: var(--db-blue); font-weight: 800; text-transform: capitalize; }
+p { color: var(--db-muted); margin: 4px 0; }
+small { color: var(--db-muted); }

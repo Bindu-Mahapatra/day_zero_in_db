@@ -1,0 +1,5 @@
+.training-list { margin-top: 22px; }
+.training-row { display: grid; grid-template-columns: 48px 1fr auto auto; align-items: center; gap: 14px; padding: 16px; border: 1px solid var(--db-border); border-radius: 16px; margin-bottom: 12px; }
+.training-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px; background: var(--db-purple-light); }
+p { margin: 4px 0 0; color: var(--db-muted); }
+@media (max-width: 800px) { .training-row { grid-template-columns: 48px 1fr; } }

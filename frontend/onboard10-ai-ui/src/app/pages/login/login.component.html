@@ -1,0 +1,29 @@
+<div class="login-page">
+  <section class="login-card card">
+    <div class="login-form">
+      <div class="brand-line">Onboard10 <span>AI</span></div>
+      <h1>AI-Powered 10-Step Onboarding Copilot</h1>
+      <p>Ten intelligent gates to day-one readiness.</p>
+
+      <div class="welcome">Welcome Back! 👋</div>
+      <label>Email address</label>
+      <input class="form-control" [(ngModel)]="email" placeholder="Enter your email" />
+      <label>Password</label>
+      <input class="form-control" [(ngModel)]="password" type="password" placeholder="Enter your password" />
+      <button class="btn btn-primary sign-in" (click)="signIn()">Sign In</button>
+
+      <div class="quick-actions">
+        <button class="btn" (click)="signIn()">Continue as Joiner</button>
+        <a routerLink="/manager" class="btn">Continue as Manager</a>
+      </div>
+
+      <div class="footer-note">Secure · Trusted · Deutsche Bank</div>
+    </div>
+    <div class="hero-panel">
+      <div class="hero-card floating one">🛡️ Policy-backed decisions</div>
+      <div class="hero-card floating two">✅ Human approved access</div>
+      <div class="hero-card floating three">📄 Audit-ready evidence</div>
+      <div class="person">👨‍💻</div>
+    </div>
+  </section>
+</div>

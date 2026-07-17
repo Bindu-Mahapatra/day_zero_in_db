@@ -1,0 +1,19 @@
+<h1 class="page-title">Missing Information</h1>
+<p class="page-subtitle">AI detected fields that are blocking onboarding progress.</p>
+
+<section class="card card-pad missing-list">
+  @for (item of state().missingInformation; track item.id) {
+    <div class="missing-item" [class.resolved]="item.resolved">
+      <div class="icon">{{ item.resolved ? '✅' : '!' }}</div>
+      <div class="content">
+        <strong>{{ item.title }}</strong>
+        <p>{{ item.description }}</p>
+        <small>Owner: {{ item.owner }}</small>
+      </div>
+      <span class="risk-badge" [class.risk-high]="item.severity === 'High'" [class.risk-medium]="item.severity === 'Medium'" [class.risk-low]="item.severity === 'Low'">{{ item.severity }}</span>
+      @if (item.id === 'access-reviewer' && !item.resolved) {
+        <button class="btn btn-primary" (click)="assignReviewer()">Assign Reviewer</button>
+      }
+    </div>
+  }
+</section>

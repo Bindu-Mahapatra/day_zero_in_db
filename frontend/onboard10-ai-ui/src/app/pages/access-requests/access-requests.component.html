@@ -1,0 +1,34 @@
+<div class="page-head">
+  <div>
+    <h1 class="page-title">Access Requests</h1>
+    <p class="page-subtitle">Track access needs, risk and approval status.</p>
+  </div>
+  <button class="btn btn-primary">Request New Access</button>
+</div>
+
+<section class="card card-pad">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>System</th>
+        <th>Access Type</th>
+        <th>Risk</th>
+        <th>Status</th>
+        <th>Requested On</th>
+        <th>AI Recommendation</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (request of state().accessRequests; track request.id) {
+        <tr>
+          <td><strong>{{ request.system }}</strong></td>
+          <td>{{ request.accessType }}</td>
+          <td><span class="risk-badge" [class.risk-high]="request.riskLevel === 'High'" [class.risk-medium]="request.riskLevel === 'Medium'" [class.risk-low]="request.riskLevel === 'Low'">{{ request.riskLevel }}</span></td>
+          <td><span class="status-badge" [class.status-approved]="request.status === 'Approved'" [class.status-in-progress]="request.status === 'In Progress'" [class.status-pending]="request.status === 'Pending' || request.status === 'Needs Info'" [class.status-rejected]="request.status === 'Rejected'">{{ request.status }}</span></td>
+          <td>{{ request.requestedOn }}</td>
+          <td>{{ request.recommendedAction }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

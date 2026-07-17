@@ -1,0 +1,67 @@
+<div class="page-head">
+  <div>
+    <h1 class="page-title">Good morning, {{ state().profile.fullName.split(' ')[0] }}! ☀️</h1>
+    <p class="page-subtitle">Here is your AI-generated onboarding progress and next best action.</p>
+  </div>
+  <button class="btn btn-primary" (click)="generateJourney()">Regenerate 10-Step Journey</button>
+</div>
+
+<div class="grid dashboard-grid">
+  <section class="card card-pad score-card">
+    <h3>Readiness Score</h3>
+    <div class="donut" [style.background]="'conic-gradient(var(--db-green) ' + state().readiness.overall + '%, #e8edf7 0)'">
+      <div class="donut-inner">
+        <strong>{{ state().readiness.overall }}%</strong>
+        <span>Good Progress</span>
+      </div>
+    </div>
+    <div class="trend">↑ 12% vs last week</div>
+  </section>
+
+  <section class="card card-pad progress-card">
+    <h3>10-Step Onboarding Progress</h3>
+    <div class="step-text">Step {{ summary().completedSteps + summary().inProgressSteps }} of 10</div>
+    <div class="progress-track"><div class="progress-fill" [style.width.%]="state().readiness.teamOnboarding"></div></div>
+    <div class="legend">
+      <span><b class="green"></b>Completed ({{ summary().completedSteps }})</span>
+      <span><b class="blue"></b>In Progress ({{ summary().inProgressSteps }})</span>
+      <span><b class="amber"></b>Pending ({{ summary().pendingSteps }})</span>
+    </div>
+  </section>
+
+  <section class="card card-pad blockers-card">
+    <h3>Top Blockers</h3>
+    @for (blocker of state().readiness.blockers; track blocker) {
+      <div class="blocker">⚠️ <span>{{ blocker }}</span></div>
+    }
+    <a routerLink="/missing-info" class="link">View all blockers</a>
+  </section>
+
+  <section class="card card-pad next-card">
+    <div class="ai-label">✦ AI Next Best Action</div>
+    <h3>GitHub Access Approval</h3>
+    <p>Assign access reviewer and complete manager approval to move readiness to 86%.</p>
+    <a routerLink="/step/3" class="btn btn-primary">View Step Details</a>
+  </section>
+
+  <section class="card card-pad recent-card">
+    <h3>Recent Agent Activity</h3>
+    @for (activity of state().agentActivity.slice(0, 4); track activity.id) {
+      <div class="activity-row">
+        <span class="dot"></span>
+        <div>
+          <strong>{{ activity.title }}</strong>
+          <p>{{ activity.timestamp }} · {{ activity.actor }}</p>
+        </div>
+      </div>
+    }
+    <a routerLink="/reports" class="link">View all activity</a>
+  </section>
+
+  <section class="card card-pad task-card">
+    <h3>Open Tasks</h3>
+    <div class="kpi-number">{{ summary().openTasks }}</div>
+    <div class="kpi-label">Tasks need your attention</div>
+    <a routerLink="/tasks" class="btn">View tasks</a>
+  </section>
+</div>
