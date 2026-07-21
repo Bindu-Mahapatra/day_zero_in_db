@@ -23,10 +23,11 @@ export class DemoSessionService {
     },
     JOINER: {
       id: 'joiner-001',
-      displayName: 'Ayush Baranwal',
+      displayName: 'Maya Sen',
       roleName: 'TDI Java Engineer',
       persona: 'JOINER',
-      initials: 'AB'
+      initials: 'MS',
+      subjectJoinerId: 'J-1001'
     }
   };
 

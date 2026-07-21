@@ -1,1 +1,432 @@
-<p>joiner-journey works!</p>
+@if (detail(); as joiner) {
+  <section class="journey-page">
+    <header class="page-header">
+      <div>
+        <button
+          type="button"
+          class="back-button"
+          (click)="returnHome()">
+          ← My Home
+        </button>
+
+        <p class="eyebrow">
+          NEW JOINER EXPERIENCE
+        </p>
+
+        <h1>My onboarding journey</h1>
+
+        <p>
+          Understand what is complete, what
+          you can action and what other teams
+          are handling.
+        </p>
+      </div>
+
+      <div class="overall-progress">
+        <span>OVERALL READINESS</span>
+
+        <strong>
+          {{ joiner.summary.readinessScore }}%
+        </strong>
+
+        <div class="overall-track">
+          <span
+            [style.width.%]="
+              joiner.summary.readinessScore
+            ">
+          </span>
+        </div>
+
+        <small>
+          {{ joiner.summary.daysToJoining }}
+          days until your first day
+        </small>
+      </div>
+    </header>
+
+    <div class="status-legend">
+      <span class="legend-complete">
+        Complete
+      </span>
+
+      <span class="legend-progress">
+        In progress
+      </span>
+
+      <span class="legend-blocked">
+        Being resolved
+      </span>
+
+      <span class="legend-pending">
+        Not started
+      </span>
+    </div>
+
+    <div class="journey-layout">
+      <main class="stage-list">
+        @for (
+          stage of stages;
+          track stage.id
+        ) {
+          <section class="stage">
+            <header>
+              <h2>{{ stage.title }}</h2>
+
+              <p>{{ stage.description }}</p>
+            </header>
+
+            <div class="stage-areas">
+              @for (
+                areaCode of stage.areaCodes;
+                track areaCode
+              ) {
+                @if (
+                  areaForCode(areaCode);
+                  as area
+                ) {
+                  <button
+                    type="button"
+                    class="area-card"
+                    [class.selected]="
+                      selectedAreaCode() ===
+                      area.code
+                    "
+                    [class]="
+                      areaStatusClass(
+                        area.status
+                      )
+                    "
+                    (click)="
+                      selectArea(area.code)
+                    ">
+                    <div class="area-heading">
+                      <span class="sequence">
+                        {{ area.sequence }}
+                      </span>
+
+                      <span class="area-status">
+                        {{
+                          areaStatusLabel(
+                            area.status
+                          )
+                        }}
+                      </span>
+                    </div>
+
+                    <h3>{{ area.title }}</h3>
+
+                    <p>{{ area.description }}</p>
+
+                    <div class="area-progress">
+                      <span
+                        [style.width.%]="
+                          area.progress
+                        ">
+                      </span>
+                    </div>
+
+                    <footer>
+                      <span>
+                        Owner
+                        <strong>
+                          {{ area.owner }}
+                        </strong>
+                      </span>
+
+                      <span>
+                        Progress
+                        <strong>
+                          {{ area.progress }}%
+                        </strong>
+                      </span>
+                    </footer>
+                  </button>
+                }
+              }
+            </div>
+          </section>
+        }
+      </main>
+
+      <aside class="details-panel">
+        @if (
+          selectedArea();
+          as area
+        ) {
+          <header class="details-header">
+            <div>
+              <span>
+                READINESS AREA
+                {{ area.sequence }} OF 10
+              </span>
+
+              <h2>{{ area.title }}</h2>
+            </div>
+
+            <span
+              class="selected-status"
+              [class]="
+                areaStatusClass(
+                  area.status
+                )
+              ">
+              {{
+                areaStatusLabel(
+                  area.status
+                )
+              }}
+            </span>
+          </header>
+
+          <p class="area-description">
+            {{ area.description }}
+          </p>
+
+          <dl class="area-metadata">
+            <div>
+              <dt>Current owner</dt>
+              <dd>{{ area.owner }}</dd>
+            </div>
+
+            <div>
+              <dt>Progress</dt>
+              <dd>{{ area.progress }}%</dd>
+            </div>
+
+            <div>
+              <dt>Readiness weight</dt>
+              <dd>{{ area.weight }}%</dd>
+            </div>
+
+            <div>
+              <dt>Last updated</dt>
+              <dd>{{ area.lastUpdated }}</dd>
+            </div>
+          </dl>
+
+          @if (area.blockerReason) {
+            <section class="attention-box">
+              <span>CURRENT STATUS</span>
+
+              <p>
+                {{ area.blockerReason }}
+              </p>
+
+              @if (
+                area.owner !==
+                joiner.summary.displayName
+              ) {
+                <small>
+                  This is being handled by
+                  {{ area.owner }}. You do not
+                  need to raise a duplicate
+                  request.
+                </small>
+              }
+            </section>
+          }
+
+          <section class="detail-section">
+            <h3>Dependencies</h3>
+
+            @if (
+              area.dependencyCodes.length > 0
+            ) {
+              <div class="dependency-list">
+                @for (
+                  dependencyCode of
+                    area.dependencyCodes;
+                  track dependencyCode
+                ) {
+                  @if (
+                    dependencyArea(
+                      dependencyCode
+                    );
+                    as dependency
+                  ) {
+                    <button
+                      type="button"
+                      [class]="
+                        areaStatusClass(
+                          dependency.status
+                        )
+                      "
+                      (click)="
+                        selectArea(
+                          dependency.code
+                        )
+                      ">
+                      <span>
+                        {{ dependency.title }}
+                      </span>
+
+                      <strong>
+                        {{
+                          areaStatusLabel(
+                            dependency.status
+                          )
+                        }}
+                      </strong>
+                    </button>
+                  }
+                }
+              </div>
+            } @else {
+              <p class="empty-copy">
+                This is a foundation area with
+                no prerequisite.
+              </p>
+            }
+          </section>
+
+          <section class="detail-section">
+            <h3>Related actions</h3>
+
+            @if (
+              selectedTasks().length > 0
+            ) {
+              <div class="related-task-list">
+                @for (
+                  task of selectedTasks();
+                  track task.id
+                ) {
+                  <article
+                    class="related-task"
+                    [class.completed]="
+                      task.status ===
+                      'COMPLETED'
+                    ">
+                    <div>
+                      <span
+                        class="priority"
+                        [class]="
+                          priorityClass(
+                            task.priority
+                          )
+                        ">
+                        {{ task.priority }}
+                      </span>
+
+                      <span class="task-status">
+                        {{ task.status }}
+                      </span>
+                    </div>
+
+                    <h4>{{ task.title }}</h4>
+
+                    <p>
+                      {{ task.description }}
+                    </p>
+
+                    <footer>
+                      <span>
+                        Owner:
+                        <strong>
+                          {{ task.owner }}
+                        </strong>
+                      </span>
+
+                      <span>
+                        Due:
+                        <strong>
+                          {{ task.dueDate }}
+                        </strong>
+                      </span>
+                    </footer>
+
+                    @if (
+                      task.ownerType ===
+                        'JOINER' &&
+                      task.status === 'OPEN'
+                    ) {
+                      <button
+                        type="button"
+                        (click)="
+                          completeTask(task.id)
+                        ">
+                        Mark complete
+                      </button>
+                    }
+                  </article>
+                }
+              </div>
+            } @else {
+              <p class="empty-copy">
+                No personal action is required
+                for this area.
+              </p>
+            }
+          </section>
+
+          <section class="detail-section">
+            <h3>Supporting evidence</h3>
+
+            @if (
+              selectedEvidence().length > 0
+            ) {
+              <div class="evidence-list">
+                @for (
+                  evidence of
+                    selectedEvidence();
+                  track evidence.id
+                ) {
+                  <article class="evidence-item">
+                    <header>
+                      <div>
+                        <strong>
+                          {{ evidence.title }}
+                        </strong>
+
+                        <small>
+                          {{
+                            evidence
+                              .sourceSystem
+                          }}
+                          ·
+                          {{
+                            evidence
+                              .sourceReference
+                          }}
+                        </small>
+                      </div>
+
+                      <span
+                        [class]="
+                          evidenceStatusClass(
+                            evidence.status
+                          )
+                        ">
+                        {{ evidence.status }}
+                      </span>
+                    </header>
+
+                    <p>
+                      {{
+                        evidence
+                          .observedValue
+                      }}
+                    </p>
+
+                    <footer>
+                      Updated
+                      {{ evidence.capturedAt }}
+                    </footer>
+                  </article>
+                }
+              </div>
+            } @else {
+              <p class="empty-copy">
+                Evidence has not yet been
+                received for this area.
+              </p>
+            }
+          </section>
+        }
+      </aside>
+    </div>
+  </section>
+} @else {
+  <section class="not-found">
+    <h1>Journey not found</h1>
+  </section>
+}

@@ -16,6 +16,8 @@ import {
 import {
   JoinerDetail,
   JoinerSummary,
+  ReadinessAreaDetail,
+  ReadinessScoreExplanation,
   ReadinessStatus
 } from '../models/readiness.model';
 
@@ -151,6 +153,8 @@ export class ReadinessStoreService {
     joinerId: string,
     taskId: string
   ): void {
+    let updatedScore: number | undefined;
+
     this.updateDetail(
       joinerId,
       detail => {
@@ -171,8 +175,7 @@ export class ReadinessStoreService {
             task.id === taskId
               ? {
                   ...task,
-                  status:
-                    'COMPLETED' as const
+                  status: 'COMPLETED' as const
                 }
               : task
           );
@@ -196,29 +199,36 @@ export class ReadinessStoreService {
 
             return {
               ...area,
+
               status: areaStillHasOpenTasks
                 ? area.status
                 : 'COMPLETE' as const,
+
               progress: areaStillHasOpenTasks
                 ? area.progress
                 : 100,
+
               blockerReason:
                 areaStillHasOpenTasks
                   ? area.blockerReason
                   : null,
+
               lastUpdated:
-                '21 Jul 2026, 8:45 PM'
+                '21 Jul 2026, 9:10 PM'
             };
           });
 
-        const updatedScore = Math.min(
+        const scoreIncrease =
+          selectedTask.priority === 'HIGH'
+            ? 6
+            : selectedTask.priority === 'MEDIUM'
+              ? 4
+              : 2;
+
+        updatedScore = Math.min(
           100,
           detail.summary.readinessScore +
-            (
-              selectedTask.priority === 'HIGH'
-                ? 6
-                : 4
-            )
+            scoreIncrease
         );
 
         return {
@@ -230,6 +240,12 @@ export class ReadinessStoreService {
           },
 
           tenAreaProgress: updatedScore,
+
+          scoreExplanation:
+            this.calculateScoreExplanation(
+              updatedAreas
+            ),
+
           tasks: updatedTasks,
           areas: updatedAreas,
 
@@ -240,12 +256,11 @@ export class ReadinessStoreService {
                   this.actionSequence++
                 }`,
               occurredAt:
-                '21 Jul 2026, 8:45 PM',
+                '21 Jul 2026, 9:10 PM',
               title: 'Task completed',
               description:
                 selectedTask.title,
-              actor:
-                selectedTask.owner,
+              actor: selectedTask.owner,
               eventType: 'ACTION'
             },
             ...detail.timeline
@@ -253,6 +268,25 @@ export class ReadinessStoreService {
         };
       }
     );
+
+    /*
+    * Keep the portfolio and manager summary
+    * in sync with JoinerDetail.
+    */
+    if (updatedScore !== undefined) {
+      this.joinerState.update(
+        currentJoiners =>
+          currentJoiners.map(joiner =>
+            joiner.id === joinerId
+              ? {
+                  ...joiner,
+                  readinessScore:
+                    updatedScore as number
+                }
+              : joiner
+          )
+      );
+    }
   }
 
   resetDemoData(): void {
@@ -266,6 +300,40 @@ export class ReadinessStoreService {
     );
 
     this.actionSequence = 1;
+  }
+
+  private calculateScoreExplanation(
+    areas: ReadinessAreaDetail[]
+  ): ReadinessScoreExplanation {
+    return {
+      completedAreas: areas.filter(
+        area => area.status === 'COMPLETE'
+      ).length,
+
+      inProgressAreas: areas.filter(
+        area =>
+          area.status === 'IN_PROGRESS'
+      ).length,
+
+      blockedAreas: areas.filter(
+        area => area.status === 'BLOCKED'
+      ).length,
+
+      pendingAreas: areas.filter(
+        area =>
+          area.status === 'NOT_STARTED'
+      ).length,
+
+      criticalBlockedWeight: areas
+        .filter(
+          area => area.status === 'BLOCKED'
+        )
+        .reduce(
+          (total, area) =>
+            total + area.weight,
+          0
+        )
+    };
   }
 
   private updateDetail(

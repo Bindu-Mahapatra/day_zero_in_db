@@ -1,1 +1,541 @@
-<p>joiner-home works!</p>
+@if (detail(); as joiner) {
+  <section class="joiner-home">
+    <header class="welcome-header">
+      <div>
+        <p class="eyebrow">
+          NEW JOINER EXPERIENCE
+        </p>
+
+        <h1>
+          Welcome, {{ joiner.summary.displayName }}
+        </h1>
+
+        <p>
+          Everything you need before your
+          first day, in one place.
+        </p>
+      </div>
+
+      <div class="joining-countdown">
+        <span>YOUR FIRST DAY</span>
+
+        <strong>
+          {{ joiner.summary.daysToJoining }}
+          days
+        </strong>
+
+        <small>
+          {{ joiner.summary.joiningDate }}
+        </small>
+      </div>
+    </header>
+
+    <div class="hero-grid">
+      <article class="readiness-card">
+        <div
+          class="readiness-ring"
+          [style.--score]="
+            joiner.summary.readinessScore
+          ">
+          <div>
+            <strong>
+              {{
+                joiner.summary
+                  .readinessScore
+              }}%
+            </strong>
+
+            <span>Ready</span>
+          </div>
+        </div>
+
+        <div class="readiness-copy">
+          <span class="section-label">
+            YOUR ONBOARDING READINESS
+          </span>
+
+          <h2>
+            You are making good progress
+          </h2>
+
+          <p>
+            {{
+              completedAreas()
+            }}
+            of 10 readiness areas are
+            complete. Some actions are being
+            handled by service teams, while
+            you have
+            {{ myOpenTasks().length }}
+            personal actions remaining.
+          </p>
+
+          <div class="readiness-stats">
+            <span>
+              <strong>
+                {{ completedAreas() }}
+              </strong>
+              Complete
+            </span>
+
+            <span>
+              <strong>
+                {{
+                  joiner
+                    .scoreExplanation
+                    .inProgressAreas
+                }}
+              </strong>
+              In progress
+            </span>
+
+            <span>
+              <strong>
+                {{
+                  joiner
+                    .scoreExplanation
+                    .blockedAreas
+                }}
+              </strong>
+              Bank follow-up
+            </span>
+          </div>
+
+          <button
+            type="button"
+            (click)="openJourney()">
+            View my complete journey
+          </button>
+        </div>
+      </article>
+
+      <article class="buddy-card">
+        <div class="buddy-heading">
+          <span class="buddy-icon">AI</span>
+
+          <div>
+            <strong>ReadyPath Buddy</strong>
+            <small>
+              Grounded onboarding guidance
+            </small>
+          </div>
+        </div>
+
+        @if (
+          nextBestAction();
+          as nextAction
+        ) {
+          <span class="buddy-label">
+            YOUR NEXT BEST ACTION
+          </span>
+
+          <h2>
+            {{ nextAction.title }}
+          </h2>
+
+          <p>
+            {{ nextAction.description }}
+          </p>
+
+          <div class="buddy-reason">
+            Completing this action will
+            update your
+            {{
+              nextAction.areaCode
+                .replaceAll('_', ' ')
+            }}
+            readiness area.
+          </div>
+
+          <button
+            type="button"
+            (click)="
+              completeTask(nextAction.id)
+            ">
+            Mark action complete
+          </button>
+        } @else {
+          <span class="buddy-label">
+            NO PERSONAL ACTIONS
+          </span>
+
+          <h2>
+            Your current tasks are complete
+          </h2>
+
+          <p>
+            Remaining readiness items are
+            being handled by your manager or
+            service teams.
+          </p>
+
+          <button
+            type="button"
+            (click)="openJourney()">
+            Review journey
+          </button>
+        }
+
+        <small class="buddy-disclaimer">
+          ReadyPath Buddy explains synthetic
+          evidence. It does not make access
+          or employment decisions.
+        </small>
+      </article>
+    </div>
+
+    <div class="summary-grid">
+      <article class="summary-card">
+        <span class="summary-icon complete">
+          ✓
+        </span>
+
+        <div>
+          <span>Readiness areas complete</span>
+
+          <strong>
+            {{ completedAreas() }}/10
+          </strong>
+
+          <small>
+            Evidence-confirmed progress
+          </small>
+        </div>
+      </article>
+
+      <article class="summary-card">
+        <span class="summary-icon tasks">
+          {{ myOpenTasks().length }}
+        </span>
+
+        <div>
+          <span>Your open actions</span>
+
+          <strong>
+            {{ myOpenTasks().length }}
+          </strong>
+
+          <small>
+            {{
+              completedMyTasks()
+            }}
+            completed during this demo
+          </small>
+        </div>
+      </article>
+
+      <article class="summary-card">
+        <span class="summary-icon managed">
+          {{ bankManagedBlockers().length }}
+        </span>
+
+        <div>
+          <span>Being handled for you</span>
+
+          <strong>
+            {{
+              bankManagedBlockers().length
+            }}
+          </strong>
+
+          <small>
+            Manager or service-team items
+          </small>
+        </div>
+      </article>
+
+      <article class="summary-card">
+        <span class="summary-icon first-day">
+          D1
+        </span>
+
+        <div>
+          <span>First-day location</span>
+
+          <strong class="location-value">
+            Bengaluru
+          </strong>
+
+          <small>
+            {{ firstDayPlan.arrivalTime }}
+          </small>
+        </div>
+      </article>
+    </div>
+
+    <div class="content-grid">
+      <section class="left-column">
+        <article class="panel tasks-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Your actions</h2>
+
+              <p>
+                Tasks that you can complete
+                directly.
+              </p>
+            </div>
+
+            <span>
+              {{ myOpenTasks().length }}
+              open
+            </span>
+          </div>
+
+          @if (myOpenTasks().length > 0) {
+            <div class="task-list">
+              @for (
+                task of myOpenTasks();
+                track task.id
+              ) {
+                <article class="task-item">
+                  <div class="task-top-row">
+                    <span
+                      class="priority"
+                      [class]="
+                        priorityClass(
+                          task.priority
+                        )
+                      ">
+                      {{ task.priority }}
+                    </span>
+
+                    <span class="due-date">
+                      Due {{ task.dueDate }}
+                    </span>
+                  </div>
+
+                  <h3>{{ task.title }}</h3>
+
+                  <p>{{ task.description }}</p>
+
+                  <div class="task-area">
+                    Readiness area:
+                    <strong>
+                      {{
+                        task.areaCode
+                          .replaceAll('_', ' ')
+                      }}
+                    </strong>
+                  </div>
+
+                  <button
+                    type="button"
+                    (click)="
+                      completeTask(task.id)
+                    ">
+                    Mark complete
+                  </button>
+                </article>
+              }
+            </div>
+          } @else {
+            <div class="success-state">
+              <span>✓</span>
+
+              <h3>
+                Your current actions are
+                complete
+              </h3>
+
+              <p>
+                You can continue reviewing
+                your journey and first-day
+                information.
+              </p>
+            </div>
+          }
+        </article>
+
+        <article class="panel journey-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Your 10-area journey</h2>
+
+              <p>
+                Progress across every
+                readiness area.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              (click)="openJourney()">
+              View details
+            </button>
+          </div>
+
+          <div class="journey-strip">
+            @for (
+              area of journeyPreview();
+              track area.code
+            ) {
+              <button
+                type="button"
+                class="journey-step"
+                [class]="
+                  areaStatusClass(
+                    area.status
+                  )
+                "
+                (click)="openJourney()">
+                <span class="step-number">
+                  {{ area.sequence }}
+                </span>
+
+                <span class="step-copy">
+                  <strong>
+                    {{ area.title }}
+                  </strong>
+
+                  <small>
+                    {{
+                      areaStatusLabel(
+                        area.status
+                      )
+                    }}
+                  </small>
+                </span>
+              </button>
+            }
+          </div>
+        </article>
+      </section>
+
+      <aside class="right-column">
+        <article class="panel handled-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Being handled for you</h2>
+
+              <p>
+                You do not need to chase these
+                teams yourself.
+              </p>
+            </div>
+          </div>
+
+          @if (
+            bankManagedBlockers().length > 0
+          ) {
+            <div class="handled-list">
+              @for (
+                blocker of
+                  bankManagedBlockers();
+                track blocker.id
+              ) {
+                <article class="handled-item">
+                  <div>
+                    <span class="handled-status">
+                      IN PROGRESS
+                    </span>
+
+                    <h3>
+                      {{ blocker.title }}
+                    </h3>
+
+                    <p>
+                      {{ blocker.description }}
+                    </p>
+                  </div>
+
+                  <footer>
+                    <span>
+                      Owner
+                      <strong>
+                        {{ blocker.owner }}
+                      </strong>
+                    </span>
+
+                    <span>
+                      Open for
+                      <strong>
+                        {{
+                          blocker.ageInDays
+                        }}
+                        days
+                      </strong>
+                    </span>
+                  </footer>
+                </article>
+              }
+            </div>
+          } @else {
+            <div class="success-state compact">
+              No service-team blockers.
+            </div>
+          }
+        </article>
+
+        <article class="panel first-day-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Your first day</h2>
+
+              <p>
+                Confirmed synthetic plan.
+              </p>
+            </div>
+          </div>
+
+          <dl>
+            <div>
+              <dt>Date</dt>
+              <dd>
+                {{ firstDayPlan.date }}
+              </dd>
+            </div>
+
+            <div>
+              <dt>Arrival</dt>
+              <dd>
+                {{
+                  firstDayPlan.arrivalTime
+                }}
+              </dd>
+            </div>
+
+            <div>
+              <dt>Location</dt>
+              <dd>
+                {{ firstDayPlan.location }}
+              </dd>
+            </div>
+
+            <div>
+              <dt>Manager</dt>
+              <dd>
+                {{ firstDayPlan.manager }}
+              </dd>
+            </div>
+
+            <div>
+              <dt>Onboarding buddy</dt>
+              <dd>
+                {{ firstDayPlan.buddy }}
+              </dd>
+            </div>
+
+            <div>
+              <dt>First meeting</dt>
+              <dd>
+                {{
+                  firstDayPlan.firstMeeting
+                }}
+              </dd>
+            </div>
+          </dl>
+        </article>
+      </aside>
+    </div>
+  </section>
+} @else {
+  <section class="not-found">
+    <h1>Onboarding case not found</h1>
+
+    <p>
+      The synthetic joiner profile could not
+      be loaded.
+    </p>
+  </section>
+}

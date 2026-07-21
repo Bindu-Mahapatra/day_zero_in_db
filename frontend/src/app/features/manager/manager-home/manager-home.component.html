@@ -1,1 +1,607 @@
-<p>manager-home works!</p>
+<section class="manager-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">
+        HIRING MANAGER EXPERIENCE
+      </p>
+
+      <h1>
+        Good evening,
+        {{ currentUser().displayName }}
+      </h1>
+
+      <p>
+        Review team onboarding readiness,
+        blockers and recommended actions.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="assistant-button"
+      (click)="openAssistant()">
+      Ask ReadyPath
+    </button>
+  </header>
+
+  <div class="summary-grid">
+    <article class="summary-card">
+      <span class="summary-icon total">
+        {{ summary().totalJoiners }}
+      </span>
+
+      <div>
+        <span>Assigned joiners</span>
+
+        <strong>
+          {{ summary().totalJoiners }}
+        </strong>
+
+        <small>
+          Across upcoming onboarding cohorts
+        </small>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon ready">
+        ✓
+      </span>
+
+      <div>
+        <span>Fully ready</span>
+
+        <strong>
+          {{ summary().fullyReady }}
+        </strong>
+
+        <small>
+          No critical readiness blockers
+        </small>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon attention">
+        !
+      </span>
+
+      <div>
+        <span>Need attention</span>
+
+        <strong>
+          {{ summary().attentionRequired }}
+        </strong>
+
+        <small>
+          Manager or service-team action
+        </small>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon critical">
+        ×
+      </span>
+
+      <div>
+        <span>Critical risk</span>
+
+        <strong>
+          {{ summary().criticalRisk }}
+        </strong>
+
+        <small>
+          Joining date may be affected
+        </small>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-icon score">
+        %
+      </span>
+
+      <div>
+        <span>Average readiness</span>
+
+        <strong>
+          {{ summary().averageReadiness }}%
+        </strong>
+
+        <small>
+          Deterministic team score
+        </small>
+      </div>
+    </article>
+  </div>
+
+  @if (featuredJoiner(); as featured) {
+    <article class="featured-alert">
+      <div class="alert-icon">!</div>
+
+      <div class="alert-copy">
+        <span class="alert-label">
+          PRIORITY MANAGER ATTENTION
+        </span>
+
+        <h2>
+          {{ featured.summary.displayName }}
+          joins in
+          {{ featured.summary.daysToJoining }}
+          days
+        </h2>
+
+        <p>
+          {{ featured.overallAssessment }}
+        </p>
+
+        <div class="alert-meta">
+          <span>
+            Readiness:
+            <strong>
+              {{
+                featured.summary
+                  .readinessScore
+              }}%
+            </strong>
+          </span>
+
+          <span>
+            Top pending item:
+            <strong>
+              {{
+                featured.summary
+                  .topPendingItem
+              }}
+            </strong>
+          </span>
+
+          <span>
+            Owner:
+            <strong>
+              {{
+                featured.summary
+                  .pendingOwner
+              }}
+            </strong>
+          </span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        (click)="
+          openJoiner(featured.summary.id)
+        ">
+        Review Joiner 360
+      </button>
+    </article>
+  }
+
+  <div class="manager-grid">
+    <article class="panel joiners-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Priority joiners</h2>
+
+          <p>
+            Ordered by operational risk and
+            joining date.
+          </p>
+        </div>
+
+        <span>
+          {{
+            summary()
+              .joiningWithinSevenDays
+          }}
+          joining within 7 days
+        </span>
+      </div>
+
+      @if (priorityJoiners().length > 0) {
+        <div class="joiner-list">
+          @for (
+            joiner of priorityJoiners();
+            track joiner.id
+          ) {
+            <button
+              type="button"
+              class="joiner-row"
+              (click)="
+                openJoiner(joiner.id)
+              ">
+              <span class="avatar">
+                {{
+                  joiner.displayName.slice(
+                    0,
+                    1
+                  )
+                }}
+              </span>
+
+              <span class="joiner-identity">
+                <strong>
+                  {{ joiner.displayName }}
+                </strong>
+
+                <small>
+                  {{ joiner.role }}
+                  ·
+                  {{ joiner.location }}
+                </small>
+              </span>
+
+              <span class="readiness-cell">
+                <strong>
+                  {{ joiner.readinessScore }}%
+                </strong>
+
+                <span class="score-track">
+                  <span
+                    [style.width.%]="
+                      joiner.readinessScore
+                    "
+                    [class]="
+                      statusClass(
+                        joiner.status
+                      )
+                    ">
+                  </span>
+                </span>
+              </span>
+
+              <span
+                class="status-chip"
+                [class]="
+                  statusClass(
+                    joiner.status
+                  )
+                ">
+                {{
+                  statusLabel(
+                    joiner.status
+                  )
+                }}
+              </span>
+
+              <span class="pending-cell">
+                <strong>
+                  {{ joiner.topPendingItem }}
+                </strong>
+
+                <small>
+                  {{ joiner.pendingOwner }}
+                </small>
+              </span>
+
+              <span
+                class="days"
+                [class.urgent]="
+                  joiner.daysToJoining <= 5
+                ">
+                {{ joiner.daysToJoining }}
+                days
+              </span>
+
+              <span class="open-arrow">
+                →
+              </span>
+            </button>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          All assigned joiners are ready.
+        </div>
+      }
+    </article>
+
+    <article class="panel insight-panel">
+      <div class="ai-badge">
+        AI TEAM INSIGHT
+      </div>
+
+      <h2>
+        Focus on access and manager-owned
+        actions
+      </h2>
+
+      <p>
+        The most urgent readiness risk is an
+        overdue role-access request. Manager
+        follow-up can also unblock incomplete
+        first-week plans.
+      </p>
+
+      <div class="insight-statistics">
+        <div>
+          <strong>
+            {{
+              summary().pendingApprovals
+            }}
+          </strong>
+
+          <span>
+            recommendations awaiting review
+          </span>
+        </div>
+
+        <div>
+          <strong>
+            {{ topBlockers().length }}
+          </strong>
+
+          <span>
+            evidence-backed blockers
+          </span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        (click)="openAssistant()">
+        Ask which joiners need action
+      </button>
+
+      <small>
+        Generated from synthetic structured
+        records. Human review is required.
+      </small>
+    </article>
+  </div>
+
+  <div class="lower-grid">
+    <article class="panel approvals-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Approval queue</h2>
+
+          <p>
+            AI-proposed actions waiting for
+            manager review.
+          </p>
+        </div>
+
+        <span>
+          {{ approvalQueue().length }}
+          shown
+        </span>
+      </div>
+
+      @if (approvalQueue().length > 0) {
+        <div class="approval-list">
+          @for (
+            item of approvalQueue();
+            track item.recommendation.id
+          ) {
+            <article class="approval-item">
+              <header>
+                <div>
+                  <span
+                    class="status-chip"
+                    [class]="
+                      statusClass(
+                        item.joiner.status
+                      )
+                    ">
+                    {{
+                      statusLabel(
+                        item.joiner.status
+                      )
+                    }}
+                  </span>
+
+                  <h3>
+                    {{
+                      item.joiner
+                        .displayName
+                    }}
+                  </h3>
+
+                  <p>
+                    {{ item.joiner.role }}
+                  </p>
+                </div>
+
+                <strong class="confidence">
+                  {{
+                    item.recommendation
+                      .confidence
+                  }}%
+                  confidence
+                </strong>
+              </header>
+
+              <h4>
+                {{
+                  item.recommendation
+                    .title
+                }}
+              </h4>
+
+              <p class="recommendation-copy">
+                {{
+                  item.recommendation
+                    .summary
+                }}
+              </p>
+
+              <div class="action-preview">
+                <span>
+                  Proposed action
+                </span>
+
+                <p>
+                  {{
+                    item.recommendation
+                      .recommendedAction
+                  }}
+                </p>
+              </div>
+
+              <footer>
+                <button
+                  type="button"
+                  class="view-button"
+                  (click)="
+                    openJoiner(
+                      item.joiner.id
+                    )
+                  ">
+                  Review evidence
+                </button>
+
+                <button
+                  type="button"
+                  class="dismiss-button"
+                  (click)="
+                    dismissRecommendation(
+                      item.joiner.id
+                    )
+                  ">
+                  Dismiss
+                </button>
+
+                <button
+                  type="button"
+                  class="approve-button"
+                  (click)="
+                    approveRecommendation(
+                      item.joiner.id
+                    )
+                  ">
+                  Approve
+                </button>
+              </footer>
+            </article>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          No AI recommendations require
+          approval.
+        </div>
+      }
+    </article>
+
+    <article class="panel blocker-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Blocker intelligence</h2>
+
+          <p>
+            Evidence-backed issues affecting
+            assigned joiners.
+          </p>
+        </div>
+      </div>
+
+      @if (topBlockers().length > 0) {
+        <div class="blocker-list">
+          @for (
+            item of topBlockers();
+            track item.blocker.id
+          ) {
+            <button
+              type="button"
+              class="blocker-row"
+              (click)="
+                openJoiner(item.joinerId)
+              ">
+              <span
+                class="severity"
+                [class]="
+                  blockerClass(
+                    item.blocker.severity
+                  )
+                ">
+                {{ item.blocker.severity }}
+              </span>
+
+              <span class="blocker-copy">
+                <strong>
+                  {{ item.blocker.title }}
+                </strong>
+
+                <small>
+                  {{ item.joinerName }}
+                  · {{ item.role }}
+                </small>
+              </span>
+
+              <span class="blocker-owner">
+                <small>Owner</small>
+
+                <strong>
+                  {{ item.blocker.owner }}
+                </strong>
+              </span>
+
+              <span class="blocker-age">
+                {{
+                  item.blocker.ageInDays
+                }}
+                days
+              </span>
+            </button>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          No active evidence-backed blockers.
+        </div>
+      }
+    </article>
+  </div>
+
+  <article class="panel activity-panel">
+    <div class="panel-heading">
+      <div>
+        <h2>Recent readiness activity</h2>
+
+        <p>
+          Updates across your assigned
+          joiners.
+        </p>
+      </div>
+    </div>
+
+    <div class="activity-list">
+      @for (
+        activity of recentActivity();
+        track activity.id
+      ) {
+        <button
+          type="button"
+          class="activity-row"
+          (click)="
+            openJoiner(activity.joinerId)
+          ">
+          <span class="activity-marker">
+          </span>
+
+          <span class="activity-copy">
+            <strong>
+              {{ activity.title }}
+            </strong>
+
+            <small>
+              {{ activity.joinerName }}
+              · {{ activity.description }}
+            </small>
+          </span>
+
+          <span class="activity-actor">
+            {{ activity.actor }}
+          </span>
+
+          <time>
+            {{ activity.occurredAt }}
+          </time>
+        </button>
+      }
+    </div>
+  </article>
+</section>
