@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: readypath-api
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+endpoint:
+  health:
+    show-details: always
+
+info:
+  application:
+    name: ReadyPath AI API
+    version: 1.0.0
+    description: Synthetic hackathon backend
