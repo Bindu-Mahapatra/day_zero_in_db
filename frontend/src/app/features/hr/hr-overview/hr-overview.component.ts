@@ -73,7 +73,7 @@ export class HrOverviewComponent {
 
   openJoiner(joinerId: string): void {
     void this.router.navigate([
-      '/manager/joiners',
+      '/hr/joiners',
       joinerId
     ]);
   }

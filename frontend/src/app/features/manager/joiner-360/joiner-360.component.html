@@ -1,1 +1,649 @@
-<p>joiner-360 works!</p>
+@if (detail(); as joiner) {
+  <section class="joiner-page">
+    <header class="page-header">
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+        ← Back
+      </button>
+
+      <div class="identity">
+        <div class="avatar">
+          {{
+            joiner.summary.displayName
+              .slice(0, 1)
+          }}
+        </div>
+
+        <div>
+          <div class="identity-title">
+            <h1>
+              {{ joiner.summary.displayName }}
+            </h1>
+
+            <span
+              class="overall-status"
+              [class]="
+                joiner.summary.status
+                  .toLowerCase()
+              ">
+              {{ joiner.summary.status }}
+            </span>
+          </div>
+
+          <p>
+            {{ joiner.summary.role }}
+            ·
+            {{ joiner.summary.department }}
+            ·
+            {{ joiner.summary.location }}
+          </p>
+
+          <small>
+            Manager:
+            {{ joiner.summary.managerName }}
+            · Joining:
+            {{ joiner.summary.joiningDate }}
+            · {{ joiner.summary.daysToJoining }}
+            days remaining
+          </small>
+        </div>
+      </div>
+    </header>
+
+    <div class="hero-grid">
+      <article class="score-panel">
+        <div
+          class="score-ring"
+          [style.--score]="
+            joiner.summary.readinessScore
+          ">
+          <div>
+            <strong>
+              {{
+                joiner.summary
+                  .readinessScore
+              }}%
+            </strong>
+
+            <span>Ready</span>
+          </div>
+        </div>
+
+        <div class="score-copy">
+          <span class="eyebrow">
+            DETERMINISTIC READINESS
+          </span>
+
+          <h2>
+            Not yet ready for Day 1
+          </h2>
+
+          <p>
+            {{ joiner.overallAssessment }}
+          </p>
+
+          <div class="score-breakdown">
+            <span>
+              <strong>
+                {{
+                  joiner.scoreExplanation
+                    .completedAreas
+                }}
+              </strong>
+              Complete
+            </span>
+
+            <span>
+              <strong>
+                {{
+                  joiner.scoreExplanation
+                    .inProgressAreas
+                }}
+              </strong>
+              In progress
+            </span>
+
+            <span>
+              <strong>
+                {{
+                  joiner.scoreExplanation
+                    .blockedAreas
+                }}
+              </strong>
+              Blocked
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="ai-panel">
+        <div class="ai-heading">
+          <span>AI RECOMMENDATION</span>
+
+          <strong>
+            {{
+              joiner.aiRecommendation
+                .confidence
+            }}% confidence
+          </strong>
+        </div>
+
+        <h2>
+          {{
+            joiner.aiRecommendation.title
+          }}
+        </h2>
+
+        <p>
+          {{
+            joiner.aiRecommendation.summary
+          }}
+        </p>
+
+        <div class="recommended-action">
+          <span>Recommended action</span>
+
+          <strong>
+            {{
+              joiner.aiRecommendation
+                .recommendedAction
+            }}
+          </strong>
+        </div>
+
+        <div class="recipient">
+          Recipient:
+          <strong>
+            {{
+              joiner.aiRecommendation
+                .recipient
+            }}
+          </strong>
+        </div>
+
+        @if (
+          joiner.aiRecommendation
+            .approvalStatus ===
+          'PENDING_APPROVAL'
+        ) {
+          <div class="ai-actions">
+            <button
+              type="button"
+              class="approve-button"
+              (click)="
+                approveRecommendation()
+              ">
+              Approve reminder
+            </button>
+
+            <button
+              type="button"
+              class="dismiss-button"
+              (click)="
+                dismissRecommendation()
+              ">
+              Dismiss
+            </button>
+          </div>
+        } @else {
+          <div
+            class="recommendation-result"
+            [class.approved]="
+              joiner.aiRecommendation
+                .approvalStatus ===
+              'APPROVED'
+            ">
+            {{
+              joiner.aiRecommendation
+                .approvalStatus
+            }}
+          </div>
+        }
+
+        <small class="disclaimer">
+          {{
+            joiner.aiRecommendation
+              .disclaimer
+          }}
+        </small>
+      </article>
+    </div>
+
+    <section class="section-heading">
+      <div>
+        <h2>10 readiness areas</h2>
+        <p>
+          Status, ownership and supporting
+          evidence for each readiness gate.
+        </p>
+      </div>
+
+      <span>
+        {{
+          joiner.scoreExplanation
+            .criticalBlockedWeight
+        }}% of weighted readiness is
+        currently blocked
+      </span>
+    </section>
+
+    <div class="area-grid">
+      @for (
+        area of joiner.areas;
+        track area.code
+      ) {
+        <article
+          class="area-card"
+          [class]="
+            areaStatusClass(area.status)
+          ">
+          <div class="area-header">
+            <span class="sequence">
+              {{ area.sequence }}
+            </span>
+
+            <span
+              class="area-status">
+              {{
+                areaStatusLabel(
+                  area.status
+                )
+              }}
+            </span>
+          </div>
+
+          <h3>{{ area.title }}</h3>
+
+          <p>{{ area.description }}</p>
+
+          <div class="progress-track">
+            <span
+              [style.width.%]="
+                area.progress
+              ">
+            </span>
+          </div>
+
+          <div class="area-metadata">
+            <span>
+              Owner
+              <strong>{{ area.owner }}</strong>
+            </span>
+
+            <span>
+              Weight
+              <strong>
+                {{ area.weight }}%
+              </strong>
+            </span>
+          </div>
+
+          @if (area.blockerReason) {
+            <div class="blocker-reason">
+              {{ area.blockerReason }}
+            </div>
+          }
+
+          <footer>
+            <small>
+              Updated {{ area.lastUpdated }}
+            </small>
+
+            @if (
+              area.evidenceIds.length > 0
+            ) {
+              <button
+                type="button"
+                (click)="
+                  openEvidenceById(
+                    area.evidenceIds[0]
+                  )
+                ">
+                View evidence
+              </button>
+            }
+          </footer>
+        </article>
+      }
+    </div>
+
+    <div class="content-grid">
+      <section class="left-column">
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Current blockers</h2>
+              <p>
+                Issues preventing operational
+                readiness.
+              </p>
+            </div>
+
+            <span>
+              {{ joiner.blockers.length }}
+              open
+            </span>
+          </div>
+
+          <div class="blocker-list">
+            @for (
+              blocker of joiner.blockers;
+              track blocker.id
+            ) {
+              <article class="blocker-item">
+                <div
+                  class="severity"
+                  [class]="
+                    blockerClass(
+                      blocker.severity
+                    )
+                  ">
+                  {{ blocker.severity }}
+                </div>
+
+                <div class="blocker-content">
+                  <h3>{{ blocker.title }}</h3>
+
+                  <p>
+                    {{ blocker.description }}
+                  </p>
+
+                  <div class="blocker-meta">
+                    <span>
+                      Owner:
+                      <strong>
+                        {{ blocker.owner }}
+                      </strong>
+                    </span>
+
+                    <span>
+                      Open:
+                      <strong>
+                        {{
+                          blocker.ageInDays
+                        }}
+                        days
+                      </strong>
+                    </span>
+                  </div>
+
+                  <div class="next-action">
+                    <span>
+                      Recommended next action
+                    </span>
+
+                    <p>
+                      {{
+                        blocker
+                          .recommendedAction
+                      }}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="evidence-button"
+                  (click)="
+                    openEvidenceById(
+                      blocker
+                        .evidenceIds[0]
+                    )
+                  ">
+                  Evidence
+                </button>
+              </article>
+            }
+          </div>
+        </article>
+
+        <article class="panel timeline-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Readiness timeline</h2>
+              <p>
+                Evidence, decisions and status
+                changes.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline">
+            @for (
+              event of joiner.timeline;
+              track event.id
+            ) {
+              <article class="timeline-event">
+                <div class="timeline-marker">
+                </div>
+
+                <div>
+                  <time>
+                    {{ event.occurredAt }}
+                  </time>
+
+                  <h3>{{ event.title }}</h3>
+
+                  <p>
+                    {{ event.description }}
+                  </p>
+
+                  <small>
+                    {{ event.actor }}
+                  </small>
+                </div>
+              </article>
+            }
+          </div>
+        </article>
+      </section>
+
+      <aside class="right-column">
+        <article class="panel tasks-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Next actions</h2>
+              <p>
+                Human-owned onboarding tasks.
+              </p>
+            </div>
+          </div>
+
+          <div class="task-list">
+            @for (
+              task of joiner.tasks;
+              track task.id
+            ) {
+              <article
+                class="task-item"
+                [class.completed]="
+                  task.status ===
+                  'COMPLETED'
+                ">
+                <div class="task-heading">
+                  <span
+                    class="priority"
+                    [class]="
+                      priorityClass(
+                        task.priority
+                      )
+                    ">
+                    {{ task.priority }}
+                  </span>
+
+                  <span class="task-status">
+                    {{ task.status }}
+                  </span>
+                </div>
+
+                <h3>{{ task.title }}</h3>
+
+                <p>{{ task.description }}</p>
+
+                <div class="task-meta">
+                  <span>
+                    Owner
+                    <strong>
+                      {{ task.owner }}
+                    </strong>
+                  </span>
+
+                  <span>
+                    Due
+                    <strong>
+                      {{ task.dueDate }}
+                    </strong>
+                  </span>
+                </div>
+
+                @if (
+                  task.status === 'OPEN'
+                ) {
+                  <button
+                    type="button"
+                    (click)="
+                      completeTask(task.id)
+                    ">
+                    Mark complete
+                  </button>
+                }
+              </article>
+            }
+          </div>
+        </article>
+
+        <article class="panel evidence-summary">
+          <div class="panel-heading">
+            <div>
+              <h2>Evidence records</h2>
+              <p>
+                Readiness conclusions are
+                traceable to sources.
+              </p>
+            </div>
+          </div>
+
+          <div class="evidence-list">
+            @for (
+              evidence of
+                joiner.evidence.slice(0, 5);
+              track evidence.id
+            ) {
+              <button
+                type="button"
+                (click)="
+                  openEvidenceById(
+                    evidence.id
+                  )
+                ">
+                <span>
+                  <strong>
+                    {{ evidence.title }}
+                  </strong>
+
+                  <small>
+                    {{
+                      evidence.sourceSystem
+                    }}
+                    ·
+                    {{
+                      evidence
+                        .sourceReference
+                    }}
+                  </small>
+                </span>
+
+                <span class="open-arrow">
+                  →
+                </span>
+              </button>
+            }
+          </div>
+        </article>
+      </aside>
+    </div>
+  </section>
+} @else {
+  <section class="not-found">
+    <h1>Joiner not found</h1>
+
+    <p>
+      The requested synthetic joiner does not
+      exist.
+    </p>
+
+    <button
+      type="button"
+      (click)="goBack()">
+      Return to portfolio
+    </button>
+  </section>
+}
+
+@if (selectedEvidence(); as evidence) {
+  <div
+    class="drawer-backdrop"
+    (click)="closeEvidence()">
+  </div>
+
+  <aside class="evidence-drawer">
+    <header>
+      <div>
+        <span>EVIDENCE RECORD</span>
+        <h2>{{ evidence.title }}</h2>
+      </div>
+
+      <button
+        type="button"
+        aria-label="Close evidence"
+        (click)="closeEvidence()">
+        ×
+      </button>
+    </header>
+
+    <div class="evidence-status">
+      {{ evidence.status }}
+    </div>
+
+    <dl>
+      <div>
+        <dt>Source system</dt>
+        <dd>{{ evidence.sourceSystem }}</dd>
+      </div>
+
+      <div>
+        <dt>Source reference</dt>
+        <dd>
+          {{ evidence.sourceReference }}
+        </dd>
+      </div>
+
+      <div>
+        <dt>Observed value</dt>
+        <dd>{{ evidence.observedValue }}</dd>
+      </div>
+
+      <div>
+        <dt>Captured at</dt>
+        <dd>{{ evidence.capturedAt }}</dd>
+      </div>
+
+      <div>
+        <dt>Captured by</dt>
+        <dd>{{ evidence.capturedBy }}</dd>
+      </div>
+    </dl>
+
+    <section>
+      <h3>Evidence description</h3>
+      <p>{{ evidence.description }}</p>
+    </section>
+
+    <footer>
+      Synthetic hackathon evidence only.
+      No real employee or bank-system data.
+    </footer>
+  </aside>
+}

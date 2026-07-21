@@ -1,1 +1,374 @@
-<p>joiner-portfolio works!</p>
+<section class="portfolio-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">HR EXPERIENCE</p>
+      <h1>Joiner Portfolio</h1>
+      <p>
+        Locate, prioritise and review onboarding readiness.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="primary-action">
+      + Add synthetic joiner
+    </button>
+  </header>
+
+  <div class="summary-grid">
+    <button
+      type="button"
+      class="summary-card total"
+      (click)="setStatus('ALL')">
+      <span class="summary-icon">ALL</span>
+
+      <div>
+        <span>Total joiners</span>
+        <strong>{{ summary().total }}</strong>
+        <small>Selected cohort</small>
+      </div>
+    </button>
+
+    <button
+      type="button"
+      class="summary-card ready"
+      (click)="setStatus('READY')">
+      <span class="summary-icon">✓</span>
+
+      <div>
+        <span>Fully ready</span>
+        <strong>{{ summary().ready }}</strong>
+        <small>Operationally ready</small>
+      </div>
+    </button>
+
+    <button
+      type="button"
+      class="summary-card attention"
+      (click)="setStatus('ATTENTION')">
+      <span class="summary-icon">!</span>
+
+      <div>
+        <span>Attention required</span>
+        <strong>{{ summary().attention }}</strong>
+        <small>Action is required</small>
+      </div>
+    </button>
+
+    <button
+      type="button"
+      class="summary-card critical"
+      (click)="setStatus('CRITICAL')">
+      <span class="summary-icon">×</span>
+
+      <div>
+        <span>Critical risk</span>
+        <strong>{{ summary().critical }}</strong>
+        <small>Joining date at risk</small>
+      </div>
+    </button>
+
+    <article class="summary-card average">
+      <span class="summary-icon">D</span>
+
+      <div>
+        <span>Average days to joining</span>
+        <strong>
+          {{ summary().averageDaysToReady }}
+        </strong>
+        <small>Synthetic cohort average</small>
+      </div>
+    </article>
+  </div>
+
+  <article class="portfolio-panel">
+    <div class="filter-bar">
+      <label class="search-field">
+        <span>Search joiners</span>
+
+        <input
+          type="search"
+          placeholder="Name, role, department, blocker..."
+          [ngModel]="searchTerm()"
+          (ngModelChange)="setSearch($event)" />
+      </label>
+
+      <label>
+        <span>Department</span>
+
+        <select
+          [ngModel]="departmentFilter()"
+          (ngModelChange)="setDepartment($event)">
+          <option value="ALL">All departments</option>
+
+          @for (
+            department of departments();
+            track department
+          ) {
+            <option [value]="department">
+              {{ department }}
+            </option>
+          }
+        </select>
+      </label>
+
+      <label>
+        <span>Location</span>
+
+        <select
+          [ngModel]="locationFilter()"
+          (ngModelChange)="setLocation($event)">
+          <option value="ALL">All locations</option>
+
+          @for (
+            location of locations();
+            track location
+          ) {
+            <option [value]="location">
+              {{ location }}
+            </option>
+          }
+        </select>
+      </label>
+
+      <label>
+        <span>Status</span>
+
+        <select
+          [ngModel]="statusFilter()"
+          (ngModelChange)="setStatus($event)">
+          <option value="ALL">All statuses</option>
+          <option value="READY">Ready</option>
+          <option value="ATTENTION">
+            Attention required
+          </option>
+          <option value="CRITICAL">Critical</option>
+          <option value="NOT_STARTED">
+            Not started
+          </option>
+        </select>
+      </label>
+
+      <button
+        type="button"
+        class="reset-button"
+        (click)="resetFilters()">
+        Reset
+      </button>
+    </div>
+
+    <div class="result-summary">
+      <div>
+        <strong>
+          {{ filteredJoiners().length }}
+        </strong>
+        joiners match the current filters
+      </div>
+
+      @if (statusFilter() !== 'ALL') {
+        <span
+          class="active-filter"
+          [class]="statusClass(statusFilter())">
+          Status:
+          {{ statusLabel(statusFilter()) }}
+        </span>
+      }
+    </div>
+
+    @if (paginatedJoiners().length > 0) {
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Joiner</th>
+              <th>Role</th>
+              <th>Department</th>
+              <th>Location</th>
+              <th>Joining date</th>
+              <th>Readiness</th>
+              <th>Status</th>
+              <th>Top pending item</th>
+              <th>Days</th>
+              <th aria-label="Actions"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (
+              joiner of paginatedJoiners();
+              track joiner.id
+            ) {
+              <tr
+                tabindex="0"
+                (click)="openJoiner(joiner.id)"
+                (keydown.enter)="openJoiner(joiner.id)">
+                <td>
+                  <div class="joiner-cell">
+                    <span class="avatar">
+                      {{
+                        joiner.displayName
+                          .slice(0, 1)
+                      }}
+                    </span>
+
+                    <span>
+                      <strong>
+                        {{ joiner.displayName }}
+                      </strong>
+
+                      <small>
+                        {{ joiner.email }}
+                      </small>
+                    </span>
+                  </div>
+                </td>
+
+                <td>{{ joiner.role }}</td>
+
+                <td>
+                  {{ joiner.department }}
+                </td>
+
+                <td>{{ joiner.location }}</td>
+
+                <td>
+                  {{ joiner.joiningDate }}
+                </td>
+
+                <td>
+                  <div class="score-cell">
+                    <strong>
+                      {{ joiner.readinessScore }}%
+                    </strong>
+
+                    <span class="score-track">
+                      <span
+                        [style.width.%]="
+                          joiner.readinessScore
+                        "
+                        [class]="
+                          statusClass(joiner.status)
+                        ">
+                      </span>
+                    </span>
+                  </div>
+                </td>
+
+                <td>
+                  <span
+                    class="status-chip"
+                    [class]="
+                      statusClass(joiner.status)
+                    ">
+                    {{
+                      statusLabel(joiner.status)
+                    }}
+                  </span>
+                </td>
+
+                <td>
+                  <strong class="pending-item">
+                    {{ joiner.topPendingItem }}
+                  </strong>
+
+                  <small class="pending-owner">
+                    {{ joiner.pendingOwner }}
+                  </small>
+                </td>
+
+                <td>
+                  <span
+                    class="days-cell"
+                    [class.urgent]="
+                      joiner.daysToJoining <= 5 &&
+                      joiner.status !== 'READY'
+                    ">
+                    {{ joiner.daysToJoining }}
+                  </span>
+                </td>
+
+                <td>
+                  <button
+                    type="button"
+                    class="row-action"
+                    aria-label="Open joiner details"
+                    (click)="
+                      $event.stopPropagation();
+                      openJoiner(joiner.id)
+                    ">
+                    Open
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="pagination">
+        <div>
+          Showing
+          <strong>{{ rangeStart() }}</strong>
+          to
+          <strong>{{ rangeEnd() }}</strong>
+          of
+          <strong>
+            {{ filteredJoiners().length }}
+          </strong>
+          joiners
+        </div>
+
+        <nav aria-label="Portfolio pagination">
+          <button
+            type="button"
+            [disabled]="currentPage() === 1"
+            (click)="setPage(currentPage() - 1)">
+            Previous
+          </button>
+
+          @for (
+            page of pageNumbers();
+            track page
+          ) {
+            <button
+              type="button"
+              class="page-button"
+              [class.selected]="
+                currentPage() === page
+              "
+              (click)="setPage(page)">
+              {{ page }}
+            </button>
+          }
+
+          <button
+            type="button"
+            [disabled]="
+              currentPage() === totalPages()
+            "
+            (click)="setPage(currentPage() + 1)">
+            Next
+          </button>
+        </nav>
+      </footer>
+    } @else {
+      <section class="empty-state">
+        <div class="empty-icon">0</div>
+
+        <h2>No joiners match these filters</h2>
+
+        <p>
+          Change the search criteria or reset the
+          current filters.
+        </p>
+
+        <button
+          type="button"
+          class="primary-action"
+          (click)="resetFilters()">
+          Reset filters
+        </button>
+      </section>
+    }
+  </article>
+</section>

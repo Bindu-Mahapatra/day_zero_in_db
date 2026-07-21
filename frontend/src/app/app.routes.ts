@@ -28,37 +28,43 @@ export const routes: Routes = [
         path: 'hr/joiners',
         loadComponent: () =>
           import('./features/hr/joiner-portfolio/joiner-portfolio.component')
-            .then(module => module.JoinerPortfolioComponent)
+            .then(module => module.JoinerPortfolio)
       },
+      {
+        path: 'hr/joiners/:id',
+        loadComponent: () =>
+            import('./features/manager/joiner-360/joiner-360.component')
+            .then(module => module.Joiner360)
+    },
       {
         path: 'manager/home',
         loadComponent: () =>
           import('./features/manager/manager-home/manager-home.component')
-            .then(module => module.ManagerHomeComponent)
+            .then(module => module.ManagerHome)
       },
       {
         path: 'manager/joiners/:id',
         loadComponent: () =>
           import('./features/manager/joiner-360/joiner-360.component')
-            .then(module => module.Joiner360Component)
+            .then(module => module.Joiner360)
       },
       {
         path: 'manager/assistant',
         loadComponent: () =>
           import('./features/manager/ask-readypath/ask-readypath.component')
-            .then(module => module.AskReadypathComponent)
+            .then(module => module.AskReadypath)
       },
       {
         path: 'me/home',
         loadComponent: () =>
           import('./features/joiner/joiner-home/joiner-home.component')
-            .then(module => module.JoinerHomeComponent)
+            .then(module => module.JoinerHome)
       },
       {
         path: 'me/journey',
         loadComponent: () =>
           import('./features/joiner/joiner-journey/joiner-journey.component')
-            .then(module => module.JoinerJourneyComponent)
+            .then(module => module.JoinerJourney)
       }
     ]
   },
