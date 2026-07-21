@@ -1,0 +1,39 @@
+html {
+  box-sizing: border-box;
+  color-scheme: light;
+  font-family:
+    Inter,
+    Aptos,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: #23364f;
+  background: #f4f6f9;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+tr:focus-visible {
+  outline: 3px solid rgb(22 93 206 / 28%);
+  outline-offset: 2px;
+}

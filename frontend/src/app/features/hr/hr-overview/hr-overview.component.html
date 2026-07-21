@@ -1,0 +1,428 @@
+<section class="overview-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">HR EXPERIENCE</p>
+      <h1>HR Readiness Overview</h1>
+      <p>
+        Track onboarding readiness across all synthetic joiners.
+      </p>
+    </div>
+
+    <div class="header-controls">
+      <label>
+        Cohort
+        <select>
+          <option>This month · 1–31 Jul 2026</option>
+          <option>Next 30 days</option>
+          <option>Next 60 days</option>
+        </select>
+      </label>
+
+      <div class="last-updated">
+        <span>Data updated</span>
+        <strong>{{ overview().lastUpdated }}</strong>
+      </div>
+    </div>
+  </header>
+
+  <div class="kpi-grid">
+    <button
+      type="button"
+      class="kpi-card total"
+      (click)="openPortfolio()">
+      <span class="kpi-icon">124</span>
+
+      <div>
+        <span>New joiners</span>
+        <strong>{{ overview().totalJoiners }}</strong>
+        <small>↑ 18% compared with last month</small>
+      </div>
+    </button>
+
+    <button
+      type="button"
+      class="kpi-card ready"
+      (click)="openPortfolio('READY')">
+      <span class="kpi-icon">✓</span>
+
+      <div>
+        <span>Fully ready</span>
+        <strong>{{ overview().fullyReady }}</strong>
+        <small>71.8% of the selected cohort</small>
+      </div>
+    </button>
+
+    <button
+      type="button"
+      class="kpi-card attention"
+      (click)="openPortfolio('ATTENTION')">
+      <span class="kpi-icon">!</span>
+
+      <div>
+        <span>Attention required</span>
+        <strong>{{ overview().attentionRequired }}</strong>
+        <small>21.7% need operational action</small>
+      </div>
+    </button>
+
+    <button
+      type="button"
+      class="kpi-card critical"
+      (click)="openPortfolio('CRITICAL')">
+      <span class="kpi-icon">×</span>
+
+      <div>
+        <span>Critical risk</span>
+        <strong>{{ overview().criticalRisk }}</strong>
+        <small>Joining-date threshold breached</small>
+      </div>
+    </button>
+  </div>
+
+  <div class="dashboard-grid">
+    <article class="panel pipeline-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Onboarding pipeline</h2>
+          <p>Conversion through major readiness milestones</p>
+        </div>
+
+        <span class="panel-meta">
+          Overall conversion: 72%
+        </span>
+      </div>
+
+      <div class="pipeline-list">
+        @for (
+          stage of overview().pipeline;
+          track stage.id;
+          let index = $index
+        ) {
+          <button
+            type="button"
+            class="pipeline-row"
+            (click)="openPortfolio()">
+            <span class="stage-number">
+              {{ index + 1 }}
+            </span>
+
+            <span class="stage-label">
+              {{ stage.label }}
+            </span>
+
+            <span class="pipeline-track">
+              <span
+                class="pipeline-fill"
+                [style.width.%]="stage.conversionPercentage">
+              </span>
+            </span>
+
+            <strong>{{ stage.joinerCount }}</strong>
+
+            <span class="conversion-value">
+              {{ stage.conversionPercentage }}%
+            </span>
+          </button>
+        }
+      </div>
+    </article>
+
+    <article class="panel distribution-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Readiness distribution</h2>
+          <p>Operational readiness, not employee performance</p>
+        </div>
+      </div>
+
+      <div class="distribution-content">
+        <div
+          class="donut"
+          [style.background]="distributionGradient()">
+          <div class="donut-centre">
+            <strong>{{ overview().totalJoiners }}</strong>
+            <span>Total</span>
+          </div>
+        </div>
+
+        <div class="distribution-legend">
+          @for (
+            item of overview().distribution;
+            track item.status
+          ) {
+            <button
+              type="button"
+              (click)="openPortfolio(item.status)">
+              <span
+                class="legend-dot"
+                [class]="statusClass(item.status)">
+              </span>
+
+              <span>{{ item.label }}</span>
+
+              <strong>
+                {{ item.count }}
+                <small>({{ item.percentage }}%)</small>
+              </strong>
+            </button>
+          }
+        </div>
+      </div>
+    </article>
+
+    <article class="panel blockers-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Top HR-visible blockers</h2>
+          <p>Ranked by number of affected joiners</p>
+        </div>
+
+        <button
+          type="button"
+          class="text-action"
+          (click)="openPortfolio('ATTENTION')">
+          View all
+        </button>
+      </div>
+
+      <div class="blocker-list">
+        @for (
+          blocker of overview().blockers;
+          track blocker.id;
+          let index = $index
+        ) {
+          <button
+            type="button"
+            class="blocker-row"
+            (click)="openPortfolio('ATTENTION')">
+            <span class="rank">{{ index + 1 }}</span>
+
+            <span class="blocker-copy">
+              <strong>{{ blocker.label }}</strong>
+              <small>Owner: {{ blocker.owner }}</small>
+            </span>
+
+            <span
+              class="severity-marker"
+              [class]="blockerClass(blocker.severity)">
+              {{ blocker.severity }}
+            </span>
+
+            <strong class="affected-count">
+              {{ blocker.affectedJoiners }}
+            </strong>
+          </button>
+        }
+      </div>
+    </article>
+
+    <article class="panel trend-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Readiness trend</h2>
+          <p>Selected cohort over the last six weeks</p>
+        </div>
+      </div>
+
+      <div class="trend-legend">
+        <span class="ready-line-label">Ready</span>
+        <span class="attention-line-label">Attention</span>
+        <span class="critical-line-label">Critical</span>
+      </div>
+
+      <svg
+        class="trend-chart"
+        viewBox="0 0 420 130"
+        preserveAspectRatio="none"
+        aria-label="Readiness trend chart">
+        <line
+          x1="10"
+          y1="120"
+          x2="410"
+          y2="120"
+          class="chart-axis">
+        </line>
+
+        <polyline
+          [attr.points]="readyTrendPoints()"
+          class="trend-line trend-ready">
+        </polyline>
+
+        <polyline
+          [attr.points]="attentionTrendPoints()"
+          class="trend-line trend-attention">
+        </polyline>
+
+        <polyline
+          [attr.points]="criticalTrendPoints()"
+          class="trend-line trend-critical">
+        </polyline>
+      </svg>
+
+      <div class="trend-labels">
+        @for (
+          point of overview().trend;
+          track point.label
+        ) {
+          <span>{{ point.label }}</span>
+        }
+      </div>
+    </article>
+
+    <article class="panel departments-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Joiners by department</h2>
+          <p>Distribution for the selected cohort</p>
+        </div>
+      </div>
+
+      <div class="department-list">
+        @for (
+          department of overview().departments;
+          track department.department
+        ) {
+          <div class="department-row">
+            <div class="department-label">
+              <span>{{ department.department }}</span>
+              <strong>{{ department.joinerCount }}</strong>
+            </div>
+
+            <div class="department-track">
+              <span
+                [style.width.%]="department.percentage">
+              </span>
+            </div>
+
+            <small>{{ department.percentage }}%</small>
+          </div>
+        }
+      </div>
+    </article>
+
+    <article class="panel ai-panel">
+      <div class="ai-badge">AI INSIGHT</div>
+
+      <h2>{{ overview().aiInsight.title }}</h2>
+
+      <p>{{ overview().aiInsight.summary }}</p>
+
+      <h3>Top predicted process risks</h3>
+
+      <ul>
+        @for (
+          risk of overview().aiInsight.riskFactors;
+          track risk
+        ) {
+          <li>{{ risk }}</li>
+        }
+      </ul>
+
+      <button
+        type="button"
+        class="primary-action"
+        (click)="openPortfolio('ATTENTION')">
+        Review affected joiners
+      </button>
+
+      <small class="ai-disclaimer">
+        Generated from synthetic structured records.
+        Human review is required.
+      </small>
+    </article>
+  </div>
+
+  <article class="panel upcoming-panel">
+    <div class="panel-heading">
+      <div>
+        <h2>Upcoming joiners</h2>
+        <p>Prioritised by joining date and operational readiness</p>
+      </div>
+
+      <button
+        type="button"
+        class="text-action"
+        (click)="openPortfolio()">
+        Open Joiner Portfolio
+      </button>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Joiner</th>
+            <th>Role</th>
+            <th>Department</th>
+            <th>Location</th>
+            <th>Joining date</th>
+            <th>Readiness</th>
+            <th>Status</th>
+            <th>Top pending item</th>
+            <th>Days</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (
+            joiner of overview().upcomingJoiners;
+            track joiner.id
+          ) {
+            <tr
+              tabindex="0"
+              (click)="openJoiner(joiner.id)"
+              (keydown.enter)="openJoiner(joiner.id)">
+              <td>
+                <div class="joiner-cell">
+                  <span class="table-avatar">
+                    {{ joiner.displayName.slice(0, 1) }}
+                  </span>
+
+                  <span>
+                    <strong>{{ joiner.displayName }}</strong>
+                    <small>{{ joiner.email }}</small>
+                  </span>
+                </div>
+              </td>
+
+              <td>{{ joiner.role }}</td>
+              <td>{{ joiner.department }}</td>
+              <td>{{ joiner.location }}</td>
+              <td>{{ joiner.joiningDate }}</td>
+
+              <td>
+                <div class="score-cell">
+                  <strong>{{ joiner.readinessScore }}%</strong>
+
+                  <span class="score-track">
+                    <span
+                      [style.width.%]="joiner.readinessScore"
+                      [class]="statusClass(joiner.status)">
+                    </span>
+                  </span>
+                </div>
+              </td>
+
+              <td>
+                <span
+                  class="status-chip"
+                  [class]="statusClass(joiner.status)">
+                  {{ joiner.status }}
+                </span>
+              </td>
+
+              <td>
+                <strong>{{ joiner.topPendingItem }}</strong>
+                <small class="cell-subtitle">
+                  {{ joiner.pendingOwner }}
+                </small>
+              </td>
+
+              <td>{{ joiner.daysToJoining }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>

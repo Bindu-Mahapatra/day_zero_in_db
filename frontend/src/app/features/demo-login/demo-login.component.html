@@ -1,0 +1,47 @@
+<main class="login-page">
+  <section class="brand-panel">
+    <div class="brand-mark">R</div>
+
+    <h1>ReadyPath AI</h1>
+    <p class="subtitle">Employee Onboarding Readiness Intelligence</p>
+
+    <div class="anniversary-message">
+      <strong>10 readiness areas.</strong>
+      One transparent path to operational readiness.
+    </div>
+  </section>
+
+  <mat-card class="persona-card">
+    <mat-card-header>
+      <mat-card-title>Choose a demo experience</mat-card-title>
+      <mat-card-subtitle>
+        No real employee data is used in this prototype.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="persona-actions">
+      <button
+        mat-flat-button
+        class="primary-action"
+        (click)="selectPersona('HR')">
+        Continue as HR
+      </button>
+
+      <button
+        mat-stroked-button
+        (click)="selectPersona('MANAGER')">
+        Continue as Hiring Manager
+      </button>
+
+      <button
+        mat-stroked-button
+        (click)="selectPersona('JOINER')">
+        Continue as New Joiner
+      </button>
+    </mat-card-content>
+
+    <mat-card-footer>
+      Synthetic hackathon demonstration
+    </mat-card-footer>
+  </mat-card>
+</main>

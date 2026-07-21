@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/tasks/tasks.component.scss"],
-  "sourcesContent": [".task-list { margin-top: 22px; }\n.task-row { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 14px; padding: 16px; border: 1px solid var(--db-border); border-radius: 16px; margin-bottom: 12px; }\n.task-row.done { opacity: .6; background: var(--db-green-light); }\ninput { width: 18px; height: 18px; }\np { margin: 4px 0 0; color: var(--db-muted); }\n"],
-  "mappings": ";AAAA,CAAA;AAAa,cAAA;;AACb,CAAA;AAAY,WAAA;AAAe,yBAAA,KAAA,IAAA;AAAsC,eAAA;AAAqB,OAAA;AAAW,WAAA;AAAe,UAAA,IAAA,MAAA,IAAA;AAAoC,iBAAA;AAAqB,iBAAA;;AACzK,CADA,QACA,CAAA;AAAiB,WAAA;AAAa,cAAA,IAAA;;AAC9B;AAAQ,SAAA;AAAa,UAAA;;AACrB;AAAI,UAAA,IAAA,EAAA;AAAiB,SAAA,IAAA;;",
-  "names": []
-}

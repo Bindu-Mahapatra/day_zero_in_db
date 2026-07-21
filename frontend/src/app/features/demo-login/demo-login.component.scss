@@ -1,0 +1,87 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(360px, 1.2fr) minmax(340px, 0.8fr);
+  align-items: center;
+  gap: 64px;
+  padding: 64px;
+  background:
+    linear-gradient(135deg, #061533 0%, #0b2556 54%, #f5f7fb 54%);
+}
+
+.brand-panel {
+  color: #ffffff;
+  max-width: 620px;
+
+  h1 {
+    margin: 24px 0 8px;
+    font-size: clamp(48px, 6vw, 76px);
+    line-height: 1;
+  }
+
+  .subtitle {
+    font-size: 22px;
+    color: #c8d8ff;
+  }
+}
+
+.brand-mark {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #51d2c2;
+  border-radius: 12px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.anniversary-message {
+  margin-top: 48px;
+  padding: 20px;
+  border-left: 4px solid #51d2c2;
+  background: rgb(255 255 255 / 8%);
+}
+
+.persona-card {
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 18px 60px rgb(6 21 51 / 20%);
+}
+
+.persona-actions {
+  display: grid;
+  gap: 14px;
+  padding-top: 28px;
+}
+
+.primary-action {
+  min-height: 48px;
+}
+
+mat-card-footer {
+  padding: 24px 16px 8px;
+  color: #667085;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .login-page {
+    grid-template-columns: 1fr;
+    padding: 32px;
+    background: #f5f7fb;
+  }
+
+  .brand-panel {
+    color: #081d45;
+
+    .subtitle {
+      color: #475467;
+    }
+  }
+}

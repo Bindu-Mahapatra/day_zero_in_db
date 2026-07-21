@@ -1,0 +1,280 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.application-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  background: #f4f6f9;
+}
+
+.side-navigation {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  color: #ffffff;
+  background:
+    linear-gradient(180deg, #06152f 0%, #09234d 100%);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px 28px;
+
+  strong,
+  span {
+    display: block;
+  }
+
+  strong {
+    font-size: 17px;
+  }
+
+  span {
+    margin-top: 3px;
+    color: #9eb4d8;
+    font-size: 11px;
+  }
+}
+
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #42c9b7;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.experience-label {
+  padding: 0 10px 10px;
+  color: #7f9ac7;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+nav {
+  display: grid;
+  gap: 4px;
+}
+
+.navigation-item {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border-radius: 5px;
+  color: #c8d5ea;
+  text-decoration: none;
+  transition:
+    background 120ms ease,
+    color 120ms ease;
+
+  &:hover {
+    background: rgb(255 255 255 / 7%);
+    color: #ffffff;
+  }
+
+  &.active {
+    background: #165dce;
+    color: #ffffff;
+  }
+}
+
+.navigation-icon {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.synthetic-notice {
+  margin-top: auto;
+  padding: 14px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 6px;
+  background: rgb(255 255 255 / 5%);
+
+  strong,
+  span {
+    display: block;
+  }
+
+  strong {
+    font-size: 12px;
+  }
+
+  span {
+    margin-top: 4px;
+    color: #9eb4d8;
+    font-size: 11px;
+  }
+}
+
+.profile-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 8px 0;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #42c9b7;
+  color: #06213f;
+  font-weight: 700;
+}
+
+.profile-copy {
+  min-width: 0;
+
+  strong,
+  span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  strong {
+    font-size: 12px;
+  }
+
+  span {
+    margin-top: 3px;
+    color: #9eb4d8;
+    font-size: 10px;
+  }
+}
+
+.workspace {
+  min-width: 0;
+}
+
+.top-bar {
+  min-height: 64px;
+  display: flex;
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 28px;
+  border-bottom: 1px solid #dce2ea;
+  background: rgb(255 255 255 / 96%);
+  backdrop-filter: blur(8px);
+}
+
+.environment-label {
+  margin-left: 10px;
+  padding: 3px 7px;
+  border-radius: 3px;
+  background: #e7eefb;
+  color: #28549a;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.top-bar-actions,
+.persona-switcher {
+  display: flex;
+  align-items: center;
+}
+
+.top-bar-actions {
+  gap: 16px;
+}
+
+.persona-switcher {
+  padding: 3px;
+  border: 1px solid #d9e0e9;
+  border-radius: 5px;
+  background: #f5f7fa;
+
+  button {
+    min-height: 32px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 3px;
+    color: #556174;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+
+    &.selected {
+      color: #ffffff;
+      background: #145dcc;
+    }
+  }
+}
+
+.exit-button {
+  min-height: 34px;
+  padding: 0 13px;
+  border: 1px solid #cdd5df;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+}
+
+.page-outlet {
+  padding: 28px;
+}
+
+@media (max-width: 900px) {
+  .application-shell {
+    grid-template-columns: 80px minmax(0, 1fr);
+  }
+
+  .brand > div:last-child,
+  .experience-label,
+  .navigation-item span:last-child,
+  .synthetic-notice,
+  .profile-copy {
+    display: none;
+  }
+
+  .side-navigation {
+    align-items: center;
+    padding-inline: 10px;
+  }
+
+  .profile-block {
+    padding-inline: 0;
+  }
+
+  .top-bar {
+    align-items: flex-start;
+    padding-block: 12px;
+  }
+
+  .top-bar-actions {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+  }
+}

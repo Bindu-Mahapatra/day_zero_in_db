@@ -1,0 +1,94 @@
+<div class="application-shell">
+  <aside class="side-navigation">
+    <div class="brand">
+      <div class="brand-mark">R</div>
+
+      <div>
+        <strong>ReadyPath AI</strong>
+        <span>Onboarding Intelligence</span>
+      </div>
+    </div>
+
+    <div class="experience-label">
+      {{ currentPersona() }} EXPERIENCE
+    </div>
+
+    <nav aria-label="Primary navigation">
+      @for (item of navigationItems(); track item.route) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          class="navigation-item">
+          <span class="navigation-icon">
+            {{ item.shortLabel }}
+          </span>
+
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="synthetic-notice">
+      <strong>Synthetic demonstration</strong>
+      <span>No real employee data</span>
+    </div>
+
+    <div class="profile-block">
+      <div class="avatar">
+        {{ currentUser().initials }}
+      </div>
+
+      <div class="profile-copy">
+        <strong>{{ currentUser().displayName }}</strong>
+        <span>{{ currentUser().roleName }}</span>
+      </div>
+    </div>
+  </aside>
+
+  <section class="workspace">
+    <header class="top-bar">
+      <div>
+        <strong>ReadyPath AI</strong>
+        <span class="environment-label">Hackathon MVP</span>
+      </div>
+
+      <div class="top-bar-actions">
+        <div
+          class="persona-switcher"
+          aria-label="Switch demonstration persona">
+          <button
+            type="button"
+            [class.selected]="currentPersona() === 'HR'"
+            (click)="changePersona('HR')">
+            HR
+          </button>
+
+          <button
+            type="button"
+            [class.selected]="currentPersona() === 'MANAGER'"
+            (click)="changePersona('MANAGER')">
+            Manager
+          </button>
+
+          <button
+            type="button"
+            [class.selected]="currentPersona() === 'JOINER'"
+            (click)="changePersona('JOINER')">
+            New Joiner
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="exit-button"
+          (click)="exitDemo()">
+          Exit demo
+        </button>
+      </div>
+    </header>
+
+    <main class="page-outlet">
+      <router-outlet />
+    </main>
+  </section>
+</div>
