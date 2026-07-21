@@ -1,1 +1,413 @@
-<p>ask-readypath works!</p>
+<section class="assistant-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">
+        OPERATIONAL ASSISTANT
+      </p>
+
+      <h1>Ask ReadyPath</h1>
+
+      <p>
+        Ask grounded questions about
+        onboarding readiness, blockers,
+        evidence and ownership.
+      </p>
+    </div>
+
+    <div class="assistant-boundary">
+      <span>HUMAN-CONTROLLED AI</span>
+
+      <strong>
+        Explains and recommends
+      </strong>
+
+      <small>
+        Does not independently approve,
+        provision or reject access
+      </small>
+    </div>
+  </header>
+
+  <div class="assistant-layout">
+    <main class="conversation-panel">
+      <section class="conversation-header">
+        <div class="assistant-identity">
+          <span class="assistant-avatar">
+            AI
+          </span>
+
+          <div>
+            <strong>
+              ReadyPath Operational Assistant
+            </strong>
+
+            <small>
+              Grounded in synthetic readiness
+              evidence
+            </small>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="reset-button"
+          (click)="resetConversation()">
+          New conversation
+        </button>
+      </section>
+
+      <section class="suggestion-strip">
+        @for (
+          suggestion of suggestions;
+          track suggestion.id
+        ) {
+          <button
+            type="button"
+            (click)="
+              askSuggestion(suggestion)
+            ">
+            {{ suggestion.label }}
+          </button>
+        }
+      </section>
+
+      <section class="message-list">
+        @for (
+          message of messages();
+          track message.id
+        ) {
+          <article
+            class="message"
+            [class.user-message]="
+              message.role === 'USER'
+            "
+            [class.assistant-message]="
+              message.role ===
+              'ASSISTANT'
+            ">
+            <div class="message-avatar">
+              {{
+                message.role ===
+                'ASSISTANT'
+                  ? 'AI'
+                  : currentUser()
+                      .initials
+              }}
+            </div>
+
+            <div class="message-body">
+              <header>
+                <strong>
+                  {{
+                    message.role ===
+                      'ASSISTANT'
+                      ? 'ReadyPath'
+                      : currentUser()
+                          .displayName
+                  }}
+                </strong>
+
+                <time>
+                  {{ message.createdAt }}
+                </time>
+              </header>
+
+              @if (message.heading) {
+                <h2>
+                  {{ message.heading }}
+                </h2>
+              }
+
+              <p class="message-content">
+                {{ message.content }}
+              </p>
+
+              @if (
+                message.citations.length > 0
+              ) {
+                <section class="citation-section">
+                  <h3>
+                    Supporting evidence
+                  </h3>
+
+                  <div class="citation-list">
+                    @for (
+                      citation of
+                        message.citations;
+                      track citation.id
+                    ) {
+                      <button
+                        type="button"
+                        class="citation-card"
+                        (click)="
+                          openJoiner(
+                            citation.joinerId
+                          )
+                        ">
+                        <span class="source-badge">
+                          {{
+                            citation
+                              .sourceSystem
+                          }}
+                        </span>
+
+                        <span class="citation-copy">
+                          <strong>
+                            {{
+                              citation.title
+                            }}
+                          </strong>
+
+                          <small>
+                            {{
+                              citation
+                                .joinerName
+                            }}
+                            ·
+                            {{
+                              citation
+                                .sourceReference
+                            }}
+                          </small>
+
+                          <span>
+                            {{
+                              citation
+                                .observedValue
+                            }}
+                          </span>
+                        </span>
+
+                        <span class="citation-open">
+                          →
+                        </span>
+                      </button>
+                    }
+                  </div>
+                </section>
+              }
+
+              @if (
+                message.actions.length > 0
+              ) {
+                <section class="message-actions">
+                  @for (
+                    action of
+                      message.actions;
+                    track action.id
+                  ) {
+                    <button
+                      type="button"
+                      [class.primary-action]="
+                        action.actionType ===
+                        'APPROVE_RECOMMENDATION'
+                      "
+                      (click)="
+                        handleAction(action)
+                      ">
+                      {{ action.label }}
+                    </button>
+                  }
+                </section>
+              }
+
+              @if (message.disclaimer) {
+                <footer class="message-disclaimer">
+                  {{ message.disclaimer }}
+                </footer>
+              }
+            </div>
+          </article>
+        }
+
+        @if (isThinking()) {
+          <article
+            class="message assistant-message">
+            <div class="message-avatar">
+              AI
+            </div>
+
+            <div class="message-body thinking-body">
+              <strong>
+                Checking readiness evidence
+              </strong>
+
+              <div class="thinking-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </article>
+        }
+      </section>
+
+      <footer class="composer">
+        <label>
+          <span>
+            Ask about readiness, blockers,
+            ownership or evidence
+          </span>
+
+          <textarea
+            rows="3"
+            placeholder="Example: Which joiners need action today?"
+            [ngModel]="queryText()"
+            (ngModelChange)="
+              queryText.set($event)
+            ">
+          </textarea>
+        </label>
+
+        <div class="composer-footer">
+          <span>
+            Synthetic data only · Grounded
+            answers · Human approval required
+          </span>
+
+          <button
+            type="button"
+            [disabled]="
+              !queryText().trim() ||
+              isThinking()
+            "
+            (click)="submitQuery()">
+            Ask ReadyPath
+          </button>
+        </div>
+      </footer>
+    </main>
+
+    <aside class="context-column">
+      <article class="context-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Current scope</h2>
+
+            <p>
+              {{ currentUser().displayName }}
+              ·
+              {{ currentUser().roleName }}
+            </p>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <div>
+            <strong>
+              {{ assignedJoiners().length }}
+            </strong>
+
+            <span>Assigned joiners</span>
+          </div>
+
+          <div>
+            <strong>
+              {{ openBlockerCount() }}
+            </strong>
+
+            <span>Open blockers</span>
+          </div>
+
+          <div>
+            <strong>
+              {{
+                pendingApprovalCount()
+              }}
+            </strong>
+
+            <span>Pending approvals</span>
+          </div>
+
+          <div>
+            <strong>
+              {{ evidenceCount() }}
+            </strong>
+
+            <span>Evidence records</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="context-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Priority joiners</h2>
+
+            <p>
+              Ordered by proximity to joining
+              date.
+            </p>
+          </div>
+        </div>
+
+        <div class="priority-list">
+          @for (
+            joiner of priorityJoiners();
+            track joiner.id
+          ) {
+            <button
+              type="button"
+              (click)="
+                openJoiner(joiner.id)
+              ">
+              <span class="priority-avatar">
+                {{
+                  joiner.displayName
+                    .slice(0, 1)
+                }}
+              </span>
+
+              <span>
+                <strong>
+                  {{ joiner.displayName }}
+                </strong>
+
+                <small>
+                  {{ joiner.readinessScore }}%
+                  ready ·
+                  {{ joiner.daysToJoining }}
+                  days
+                </small>
+              </span>
+
+              <span class="priority-arrow">
+                →
+              </span>
+            </button>
+          }
+        </div>
+      </article>
+
+      <article class="context-panel guardrail-panel">
+        <div class="guardrail-badge">
+          RESPONSIBLE AI
+        </div>
+
+        <h2>
+          Clear operating boundaries
+        </h2>
+
+        <ul>
+          <li>
+            Readiness remains deterministic.
+          </li>
+
+          <li>
+            Answers cite available evidence.
+          </li>
+
+          <li>
+            Sensitive actions require human
+            approval.
+          </li>
+
+          <li>
+            No real employee or bank-system
+            data is used.
+          </li>
+        </ul>
+      </article>
+    </aside>
+  </div>
+</section>
