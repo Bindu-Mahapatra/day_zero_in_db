@@ -1,4 +1,4 @@
-import {
+﻿import {
   Injectable,
   inject
 } from '@angular/core';
@@ -38,7 +38,7 @@ export class ReadypathAssistantService {
     return this.createAssistantMessage({
       heading: `Welcome, ${displayName}`,
       content:
-        'I can explain onboarding readiness, identify evidence-backed blockers, locate owners and prepare actions for human approval. My answers use only the synthetic records available in ReadyPath.',
+        'I can explain onboarding readiness, identify evidence-backed blockers, locate owners and prepare actions for human approval. My answers use only the readiness records records available in ReadyPath.',
       citations: [],
       actions: [],
       disclaimer:
@@ -68,7 +68,7 @@ export class ReadypathAssistantService {
       citations: [],
       actions: [],
       disclaimer:
-        'The action was recorded in the synthetic in-memory demo state.'
+        'The action was recorded in the current application state.'
     });
   }
 
@@ -196,7 +196,7 @@ export class ReadypathAssistantService {
     const blockerSummary = blockers
       .map(
         blocker =>
-          `${blocker.title} — owned by ${blocker.owner}`
+          `${blocker.title} - owned by ${blocker.owner}`
       )
       .join('\n');
 
@@ -204,10 +204,10 @@ export class ReadypathAssistantService {
       heading:
         'Maya is not yet operationally ready',
       content:
-        `Maya’s readiness is ${detail.summary.readinessScore}%. ` +
+        `Maya's readiness is ${detail.summary.readinessScore}%. ` +
         `Five of ten readiness areas are complete, three are in progress and two are blocked.\n\n` +
         `The main blockers are:\n${blockerSummary}\n\n` +
-        `Role Access is the most urgent issue because request AG-3812 has exceeded its expected fulfilment time by four days. MFA verification, one mandatory training course and the manager’s first-week role plan also remain incomplete.`,
+        `Role Access is the most urgent issue because request AG-3812 has exceeded its expected fulfilment time by four days. MFA verification, one mandatory training course and the manager's first-week role plan also remain incomplete.`,
       citations:
         this.createCitations(
           detail,
@@ -221,13 +221,13 @@ export class ReadypathAssistantService {
       actions: [
         {
           id: 'OPEN-MAYA',
-          label: 'Open Maya’s Joiner 360',
+          label: "Open Maya's Joiner 360",
           actionType: 'OPEN_JOINER',
           joinerId: detail.summary.id
         }
       ],
       disclaimer:
-        'This explanation is grounded in deterministic readiness status and synthetic evidence records.'
+        'This explanation is grounded in deterministic readiness status and readiness evidence records.'
     });
   }
 
@@ -265,7 +265,7 @@ export class ReadypathAssistantService {
 
     const lines = needingAction.map(
       (joiner, index) =>
-        `${index + 1}. ${joiner.displayName} — ` +
+        `${index + 1}. ${joiner.displayName} - ` +
         `${joiner.readinessScore}% ready, ` +
         `${joiner.daysToJoining} days to joining. ` +
         `Next issue: ${joiner.topPendingItem}. ` +
@@ -367,7 +367,7 @@ export class ReadypathAssistantService {
       heading:
         'Access Management owns the highest-priority blocker',
       content:
-        `${highest.detail.summary.displayName} is blocked by “${highest.blocker.title}”. ` +
+        `${highest.detail.summary.displayName} is blocked by "${highest.blocker.title}". ` +
         `The blocker is classified as ${highest.blocker.severity}, has been open for ${highest.blocker.ageInDays} days and is owned by ${highest.blocker.owner}.\n\n` +
         `Recommended action: ${highest.blocker.recommendedAction}`,
       citations:
@@ -430,7 +430,7 @@ export class ReadypathAssistantService {
 
     const lines = matches.map(
       detail =>
-        `${detail.summary.displayName} — ` +
+        `${detail.summary.displayName} - ` +
         `${detail.summary.readinessScore}% ready. ` +
         `MFA status: ${
           detail.areas.find(
@@ -552,7 +552,7 @@ export class ReadypathAssistantService {
         }
       ],
       disclaimer:
-        'This is an AI-generated draft using synthetic evidence. A human must approve it before sending.'
+        'This is an AI-generated draft using readiness evidence. A human must approve it before sending.'
     });
   }
 
@@ -653,15 +653,15 @@ export class ReadypathAssistantService {
       content:
         `Your current scope contains ${scopedJoiners.length} joiners, of whom ${needingAttention} need attention.\n\n` +
         `Try asking:\n` +
-        `• Which joiners need action today?\n` +
-        `• Why is Maya not ready?\n` +
-        `• Who owns the highest-priority blocker?\n` +
-        `• Show Bengaluru joiners missing MFA.\n` +
-        `• Draft a reminder for Maya’s access request.`,
+        `* Which joiners need action today?\n` +
+        `* Why is Maya not ready?\n` +
+        `* Who owns the highest-priority blocker?\n` +
+        `* Show Bengaluru joiners missing MFA.\n` +
+        `* Draft a reminder for Maya's access request.`,
       citations: [],
       actions: [],
       disclaimer:
-        'This hackathon version uses deterministic intent matching. A local language model will replace the matcher later.'
+        'This version uses deterministic intent matching with an AI-provider fallback.'
     });
   }
 

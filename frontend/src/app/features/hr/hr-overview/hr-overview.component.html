@@ -1,10 +1,10 @@
-<section class="overview-page">
+﻿<section class="overview-page">
   <header class="page-header">
     <div>
       <p class="eyebrow">HR EXPERIENCE</p>
       <h1>HR Readiness Overview</h1>
       <p>
-        Track onboarding readiness across all synthetic joiners.
+        Track onboarding readiness across all upcoming joiners.
       </p>
     </div>
 
@@ -12,7 +12,7 @@
       <label>
         Cohort
         <select>
-          <option>This month · 1–31 Jul 2026</option>
+          <option>This month . 1-31 Jul 2026</option>
           <option>Next 30 days</option>
           <option>Next 60 days</option>
         </select>
@@ -35,7 +35,7 @@
       <div>
         <span>New joiners</span>
         <strong>{{ overview().totalJoiners }}</strong>
-        <small>↑ 18% compared with last month</small>
+        <small>up 18% compared with last month</small>
       </div>
     </button>
 
@@ -43,7 +43,7 @@
       type="button"
       class="kpi-card ready"
       (click)="openPortfolio('READY')">
-      <span class="kpi-icon">✓</span>
+      <span class="kpi-icon">OK</span>
 
       <div>
         <span>Fully ready</span>
@@ -69,7 +69,7 @@
       type="button"
       class="kpi-card critical"
       (click)="openPortfolio('CRITICAL')">
-      <span class="kpi-icon">×</span>
+      <span class="kpi-icon">Ã—</span>
 
       <div>
         <span>Critical risk</span>
@@ -326,7 +326,7 @@
       </button>
 
       <small class="ai-disclaimer">
-        Generated from synthetic structured records.
+        Generated from structured readiness records.
         Human review is required.
       </small>
     </article>

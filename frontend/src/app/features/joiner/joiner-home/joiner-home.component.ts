@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component,
   computed,
   inject
@@ -134,7 +134,7 @@ export class JoinerHome {
     manager: 'Arjun Rao',
     buddy: 'Neha Kapoor',
     firstMeeting:
-      '10:30 AM · Team introduction'
+      '10:30 AM . Team introduction'
   };
 
   openJourney(): void {

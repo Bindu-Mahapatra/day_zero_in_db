@@ -1,4 +1,4 @@
-<section class="assistant-page">
+﻿<section class="assistant-page">
   <header class="page-header">
     <div>
       <p class="eyebrow">
@@ -48,12 +48,37 @@
           </div>
         </div>
 
-        <button
-          type="button"
-          class="reset-button"
-          (click)="resetConversation()">
-          New conversation
-        </button>
+        <div class="conversation-actions">
+          <span
+            class="connection-status"
+            [class.connected]="
+              backendStatus() === 'CONNECTED'
+            "
+            [class.fallback]="
+              backendStatus() === 'FALLBACK'
+            ">
+            @switch (backendStatus()) {
+              @case ('CONNECTED') {
+                Spring Boot connected
+              }
+
+              @case ('FALLBACK') {
+                Local fallback active
+              }
+
+              @default {
+                Checking backend
+              }
+            }
+          </span>
+
+          <button
+            type="button"
+            class="reset-button"
+            (click)="resetConversation()">
+            New conversation
+          </button>
+        </div>
       </section>
 
       <section class="suggestion-strip">
@@ -163,7 +188,7 @@
                               citation
                                 .joinerName
                             }}
-                            ·
+                            .
                             {{
                               citation
                                 .sourceReference
@@ -179,7 +204,7 @@
                         </span>
 
                         <span class="citation-open">
-                          →
+                          ->
                         </span>
                       </button>
                     }
@@ -202,10 +227,23 @@
                         action.actionType ===
                         'APPROVE_RECOMMENDATION'
                       "
-                      (click)="
-                        handleAction(action)
-                      ">
-                      {{ action.label }}
+                      [disabled]="
+                        action.actionType ===
+                          'APPROVE_RECOMMENDATION' &&
+                        approvalInProgress() ===
+                          action.joinerId
+                      "
+                      (click)="handleAction(action)">
+                      @if (
+                        action.actionType ===
+                          'APPROVE_RECOMMENDATION' &&
+                        approvalInProgress() ===
+                          action.joinerId
+                      ) {
+                        Approving...
+                      } @else {
+                        {{ action.label }}
+                      }
                     </button>
                   }
                 </section>
@@ -261,8 +299,8 @@
 
         <div class="composer-footer">
           <span>
-            Synthetic data only · Grounded
-            answers · Human approval required
+            Synthetic data only . Grounded
+            answers . Human approval required
           </span>
 
           <button
@@ -286,7 +324,7 @@
 
             <p>
               {{ currentUser().displayName }}
-              ·
+              .
               {{ currentUser().roleName }}
             </p>
           </div>
@@ -365,14 +403,14 @@
 
                 <small>
                   {{ joiner.readinessScore }}%
-                  ready ·
+                  ready .
                   {{ joiner.daysToJoining }}
                   days
                 </small>
               </span>
 
               <span class="priority-arrow">
-                →
+                ->
               </span>
             </button>
           }

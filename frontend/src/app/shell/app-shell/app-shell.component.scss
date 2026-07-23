@@ -6,27 +6,40 @@
 .application-shell {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 248px minmax(0, 1fr);
+  grid-template-columns:
+    248px minmax(0, 1fr);
   background: #f4f6f9;
 }
 
 .side-navigation {
-  position: sticky;
-  top: 0;
   height: 100vh;
   display: flex;
+  position: sticky;
+  top: 0;
   flex-direction: column;
-  padding: 24px 16px;
+  padding: 22px 16px;
   color: #ffffff;
   background:
-    linear-gradient(180deg, #06152f 0%, #09234d 100%);
+    linear-gradient(
+      180deg,
+      #06152f 0%,
+      #09234d 100%
+    );
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 4px 8px 28px;
+  padding: 2px 7px 27px;
+  color: #ffffff;
+  text-decoration: none;
+
+  img {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 auto;
+  }
 
   strong,
   span {
@@ -40,26 +53,15 @@
   span {
     margin-top: 3px;
     color: #9eb4d8;
-    font-size: 11px;
+    font-size: 10px;
   }
 }
 
-.brand-mark {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border: 2px solid #42c9b7;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.experience-label {
+.workspace-label {
   padding: 0 10px 10px;
   color: #7f9ac7;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 9px;
+  font-weight: 800;
   letter-spacing: 0.12em;
 }
 
@@ -77,18 +79,16 @@ nav {
   border-radius: 5px;
   color: #c8d5ea;
   text-decoration: none;
-  transition:
-    background 120ms ease,
-    color 120ms ease;
 
   &:hover {
-    background: rgb(255 255 255 / 7%);
     color: #ffffff;
+    background:
+      rgb(255 255 255 / 7%);
   }
 
   &.active {
-    background: #165dce;
     color: #ffffff;
+    background: #165dce;
   }
 }
 
@@ -99,71 +99,28 @@ nav {
   place-items: center;
   border: 1px solid currentColor;
   border-radius: 5px;
-  font-size: 9px;
-  font-weight: 700;
+  font-size: 8px;
+  font-weight: 800;
 }
 
-.synthetic-notice {
-  margin-top: auto;
-  padding: 14px;
-  border: 1px solid rgb(255 255 255 / 12%);
-  border-radius: 6px;
-  background: rgb(255 255 255 / 5%);
-
-  strong,
-  span {
-    display: block;
-  }
-
-  strong {
-    font-size: 12px;
-  }
-
-  span {
-    margin-top: 4px;
-    color: #9eb4d8;
-    font-size: 11px;
-  }
-}
-
-.profile-block {
+.anniversary-footer {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 18px 8px 0;
-}
+  gap: 9px;
+  margin-top: auto;
+  padding: 13px 8px 0;
+  border-top: 1px solid
+    rgb(255 255 255 / 12%);
 
-.avatar {
-  width: 36px;
-  height: 36px;
-  display: grid;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: 50%;
-  background: #42c9b7;
-  color: #06213f;
-  font-weight: 700;
-}
-
-.profile-copy {
-  min-width: 0;
-
-  strong,
-  span {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  strong {
-    font-size: 12px;
+  img {
+    width: 33px;
+    height: 33px;
   }
 
   span {
-    margin-top: 3px;
-    color: #9eb4d8;
-    font-size: 10px;
+    color: #90a7ca;
+    font-size: 8px;
+    line-height: 1.4;
   }
 }
 
@@ -172,74 +129,74 @@ nav {
 }
 
 .top-bar {
-  min-height: 64px;
+  min-height: 66px;
   display: flex;
   position: sticky;
   z-index: 20;
   top: 0;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  justify-content: flex-end;
   padding: 0 28px;
   border-bottom: 1px solid #dce2ea;
-  background: rgb(255 255 255 / 96%);
+  background:
+    rgb(255 255 255 / 97%);
   backdrop-filter: blur(8px);
 }
 
-.environment-label {
-  margin-left: 10px;
-  padding: 3px 7px;
-  border-radius: 3px;
-  background: #e7eefb;
-  color: #28549a;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.top-bar-actions,
-.persona-switcher {
+.logged-in-user {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
-.top-bar-actions {
-  gap: 16px;
+.avatar {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #0c4f4a;
+  background: #d5eeea;
+  font-size: 10px;
+  font-weight: 800;
 }
 
-.persona-switcher {
-  padding: 3px;
-  border: 1px solid #d9e0e9;
-  border-radius: 5px;
-  background: #f5f7fa;
+.user-copy {
+  min-width: 145px;
 
-  button {
-    min-height: 32px;
-    padding: 0 12px;
-    border: 0;
-    border-radius: 3px;
-    color: #556174;
-    background: transparent;
-    cursor: pointer;
-    font: inherit;
-    font-size: 12px;
+  strong,
+  span {
+    display: block;
+  }
 
-    &.selected {
-      color: #ffffff;
-      background: #145dcc;
-    }
+  strong {
+    color: #283c55;
+    font-size: 10px;
+  }
+
+  span {
+    margin-top: 3px;
+    color: #8390a0;
+    font-size: 8px;
   }
 }
 
-.exit-button {
+.logout-button {
   min-height: 34px;
-  padding: 0 13px;
-  border: 1px solid #cdd5df;
+  margin-left: 7px;
+  padding: 0 12px;
+  border: 1px solid #c8d1dc;
   border-radius: 4px;
+  color: #405166;
   background: #ffffff;
   cursor: pointer;
-  font: inherit;
-  font-size: 12px;
+  font-size: 9px;
+  font-weight: 800;
+
+  &:hover {
+    border-color: #a9b7c8;
+    background: #f6f8fa;
+  }
 }
 
 .page-outlet {
@@ -248,14 +205,14 @@ nav {
 
 @media (max-width: 900px) {
   .application-shell {
-    grid-template-columns: 80px minmax(0, 1fr);
+    grid-template-columns:
+      80px minmax(0, 1fr);
   }
 
-  .brand > div:last-child,
-  .experience-label,
+  .brand > div,
+  .workspace-label,
   .navigation-item span:last-child,
-  .synthetic-notice,
-  .profile-copy {
+  .anniversary-footer span {
     display: none;
   }
 
@@ -264,17 +221,21 @@ nav {
     padding-inline: 10px;
   }
 
-  .profile-block {
+  .brand {
     padding-inline: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .user-copy {
+    display: none;
   }
 
   .top-bar {
-    align-items: flex-start;
-    padding-block: 12px;
+    padding-inline: 15px;
   }
 
-  .top-bar-actions {
-    align-items: flex-end;
-    flex-direction: column-reverse;
+  .page-outlet {
+    padding: 18px;
   }
 }

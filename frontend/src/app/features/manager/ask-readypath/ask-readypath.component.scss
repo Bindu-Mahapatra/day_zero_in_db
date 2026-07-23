@@ -659,3 +659,53 @@
     padding: 12px;
   }
 }
+
+.conversation-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.connection-status {
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  border-radius: 999px;
+  color: #6d7888;
+  background: #e9edf2;
+  font-size: 7px;
+  font-weight: 800;
+
+  &::before {
+    width: 6px;
+    height: 6px;
+    margin-right: 5px;
+    border-radius: 50%;
+    content: '';
+    background: #8a95a4;
+  }
+
+  &.connected {
+    color: #216d4d;
+    background: #dff1e7;
+
+    &::before {
+      background: #27855f;
+    }
+  }
+
+  &.fallback {
+    color: #97630a;
+    background: #fff0d1;
+
+    &::before {
+      background: #d48b19;
+    }
+  }
+}
+
+.message-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

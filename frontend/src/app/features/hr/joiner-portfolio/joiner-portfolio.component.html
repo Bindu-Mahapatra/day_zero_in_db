@@ -1,4 +1,4 @@
-<section class="portfolio-page">
+﻿<section class="portfolio-page">
   <header class="page-header">
     <div>
       <p class="eyebrow">HR EXPERIENCE</p>
@@ -11,7 +11,7 @@
     <button
       type="button"
       class="primary-action">
-      + Add synthetic joiner
+      + Add joiner
     </button>
   </header>
 
@@ -33,7 +33,7 @@
       type="button"
       class="summary-card ready"
       (click)="setStatus('READY')">
-      <span class="summary-icon">✓</span>
+      <span class="summary-icon">OK</span>
 
       <div>
         <span>Fully ready</span>
@@ -59,7 +59,7 @@
       type="button"
       class="summary-card critical"
       (click)="setStatus('CRITICAL')">
-      <span class="summary-icon">×</span>
+      <span class="summary-icon">Ã—</span>
 
       <div>
         <span>Critical risk</span>
@@ -76,7 +76,7 @@
         <strong>
           {{ summary().averageDaysToReady }}
         </strong>
-        <small>Synthetic cohort average</small>
+        <small>Cohort average</small>
       </div>
     </article>
   </div>

@@ -1,11 +1,11 @@
-@if (detail(); as joiner) {
+﻿@if (detail(); as joiner) {
   <section class="joiner-page">
     <header class="page-header">
       <button
         type="button"
         class="back-button"
         (click)="goBack()">
-        ← Back
+        <- Back
       </button>
 
       <div class="identity">
@@ -34,18 +34,18 @@
 
           <p>
             {{ joiner.summary.role }}
-            ·
+            .
             {{ joiner.summary.department }}
-            ·
+            .
             {{ joiner.summary.location }}
           </p>
 
           <small>
             Manager:
             {{ joiner.summary.managerName }}
-            · Joining:
+            . Joining:
             {{ joiner.summary.joiningDate }}
-            · {{ joiner.summary.daysToJoining }}
+            . {{ joiner.summary.daysToJoining }}
             days remaining
           </small>
         </div>
@@ -547,7 +547,7 @@
                     {{
                       evidence.sourceSystem
                     }}
-                    ·
+                    .
                     {{
                       evidence
                         .sourceReference
@@ -556,7 +556,7 @@
                 </span>
 
                 <span class="open-arrow">
-                  →
+                  ->
                 </span>
               </button>
             }
@@ -599,7 +599,7 @@
         type="button"
         aria-label="Close evidence"
         (click)="closeEvidence()">
-        ×
+        Ã—
       </button>
     </header>
 
@@ -642,8 +642,8 @@
     </section>
 
     <footer>
-      Synthetic hackathon evidence only.
-      No real employee or bank-system data.
+      Readiness evidence record.
+      
     </footer>
   </aside>
 }

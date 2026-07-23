@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component,
   computed,
   inject,
@@ -12,6 +12,13 @@ import {
 import {
   Router
 } from '@angular/router';
+
+import {
+  catchError,
+  finalize,
+  of,
+  timeout
+} from 'rxjs';
 
 import {
   AssistantAction,
@@ -30,6 +37,10 @@ import {
 import {
   ReadypathAssistantService
 } from '../../../core/services/readypath-assistant.service';
+
+import {
+  ReadypathBackendService
+} from '../../../core/services/readypath-backend.service';
 
 @Component({
   selector: 'app-ask-readypath',
@@ -52,6 +63,9 @@ export class AskReadypath {
 
   private readonly assistant =
     inject(ReadypathAssistantService);
+
+  private readonly backend = 
+    inject(ReadypathBackendService);
 
   readonly currentUser =
     this.session.currentUser;
@@ -99,9 +113,9 @@ export class AskReadypath {
       {
         id: 'DRAFT',
         label:
-          'Draft Maya’s access reminder',
+          "Draft Maya's access reminder",
         query:
-          'Draft a reminder for Maya’s access request.'
+          "Draft a reminder for Maya's access request."
       }
     ];
 
@@ -194,8 +208,19 @@ export class AskReadypath {
         .slice(0, 4)
     );
 
+  readonly backendStatus =
+    signal<
+      'CHECKING' |
+      'CONNECTED' |
+      'FALLBACK'
+    >('CHECKING');
+
+  readonly approvalInProgress =
+    signal<string | null>(null);
+
   constructor() {
     this.resetConversation();
+    this.checkBackendConnection();
   }
 
   submitQuery(): void {
@@ -205,6 +230,12 @@ export class AskReadypath {
     if (!query || this.isThinking()) {
       return;
     }
+
+    const persona =
+      this.currentPersona();
+
+    const userId =
+      this.currentUser().id;
 
     this.messages.update(
       current => [
@@ -217,23 +248,45 @@ export class AskReadypath {
     this.queryText.set('');
     this.isThinking.set(true);
 
-    setTimeout(() => {
-      const answer =
-        this.assistant.answer(
-          query,
-          this.currentPersona(),
-          this.currentUser().id
+    this.backend
+      .ask(
+        query,
+        persona,
+        userId
+      )
+      .pipe(
+        timeout(5000),
+
+        catchError(() => {
+          /*
+          * Keep the demo usable if the backend
+          * is temporarily unavailable.
+          */
+          this.backendStatus.set(
+            'FALLBACK'
+          );
+
+          return of(
+            this.assistant.answer(
+              query,
+              persona,
+              userId
+            )
+          );
+        }),
+
+        finalize(() => {
+          this.isThinking.set(false);
+        })
+      )
+      .subscribe(answer => {
+        this.messages.update(
+          current => [
+            ...current,
+            answer
+          ]
         );
-
-      this.messages.update(
-        current => [
-          ...current,
-          answer
-        ]
-      );
-
-      this.isThinking.set(false);
-    }, 450);
+      });
   }
 
   askSuggestion(
@@ -258,7 +311,8 @@ export class AskReadypath {
 
       case 'APPROVE_RECOMMENDATION':
         this.approveRecommendation(
-          action.joinerId
+          action.joinerId,
+          action.recommendationId
         );
         return;
     }
@@ -293,7 +347,8 @@ export class AskReadypath {
   }
 
   private approveRecommendation(
-    joinerId: string
+    joinerId: string,
+    recommendationId?: string
   ): void {
     const detail =
       this.readinessStore
@@ -311,6 +366,7 @@ export class AskReadypath {
       this.messages.update(
         current => [
           ...current,
+
           this.assistant
             .createActionConfirmation(
               'This recommendation has already been reviewed.'
@@ -321,19 +377,122 @@ export class AskReadypath {
       return;
     }
 
-    this.readinessStore
-      .approveRecommendation(
-        joinerId
-      );
+    const resolvedRecommendationId =
+      recommendationId ??
+      detail.aiRecommendation.id;
 
-    this.messages.update(
-      current => [
-        ...current,
-        this.assistant
-          .createActionConfirmation(
-            `The reminder for ${detail.summary.displayName} was approved. An audit entry was added to the Joiner 360 timeline.`
-          )
-      ]
+    this.approvalInProgress.set(
+      joinerId
     );
+
+    this.backend
+      .approveRecommendation({
+        joinerId,
+        recommendationId:
+          resolvedRecommendationId,
+        approvedBy:
+          this.currentUser().displayName
+      })
+      .pipe(
+        timeout(5000),
+
+        catchError(() => {
+          this.backendStatus.set(
+            'FALLBACK'
+          );
+
+          return of(null);
+        }),
+
+        finalize(() => {
+          this.approvalInProgress.set(
+            null
+          );
+        })
+      )
+      .subscribe(response => {
+        if (!response) {
+          /*
+          * Preserve UI functionality, but do
+          * not pretend that a notification was
+          * sent through the backend.
+          */
+          this.readinessStore
+            .approveRecommendation(
+              joinerId
+            );
+
+          this.messages.update(
+            current => [
+              ...current,
+
+              this.assistant
+                .createActionConfirmation(
+                  `The approval was recorded only in the local demo state because the backend was unavailable. No backend notification was sent.`
+                )
+            ]
+          );
+
+          return;
+        }
+
+        /*
+        * Synchronise the Angular state so the
+        * Manager Home and Joiner 360 update.
+        */
+        if (
+          detail.aiRecommendation
+            .approvalStatus ===
+          'PENDING_APPROVAL'
+        ) {
+          this.readinessStore
+            .approveRecommendation(
+              joinerId
+            );
+        }
+
+        const resultMessage =
+          response.status ===
+          'ALREADY_APPROVED'
+            ? `The backend reports that this recommendation was already approved. Audit reference: ${response.auditEventId}.`
+            : `The reminder was approved and sent through the Spring Boot notification adapter. Notification reference: ${response.notificationId}. Audit reference: ${response.auditEventId}.`;
+
+        this.messages.update(
+          current => [
+            ...current,
+
+            this.assistant
+              .createActionConfirmation(
+                resultMessage
+              )
+          ]
+        );
+      });
+  }
+
+  private checkBackendConnection(): void {
+    this.backend
+      .health()
+      .pipe(
+        timeout(3000),
+
+        catchError(() => {
+          this.backendStatus.set(
+            'FALLBACK'
+          );
+
+          return of(null);
+        })
+      )
+      .subscribe(response => {
+        if (
+          response?.status
+            .toLowerCase() === 'ok'
+        ) {
+          this.backendStatus.set(
+            'CONNECTED'
+          );
+        }
+      });
   }
 }

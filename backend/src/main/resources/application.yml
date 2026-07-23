@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
@@ -18,5 +18,5 @@ endpoint:
 info:
   application:
     name: ReadyPath AI API
-    version: 1.0.0
-    description: Synthetic hackathon backend
+    version: 0.1.0
+    description: ReadyPath AI hackathon backend

@@ -1,0 +1,275 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 220 220"
+  role="img"
+  aria-labelledby="title description">
+
+  <title id="title">
+    10 Years ReadyPath AI
+  </title>
+
+  <description id="description">
+    Compact blue and violet anniversary logo for ReadyPath AI.
+  </description>
+
+  <defs>
+    <radialGradient
+      id="compactBackground"
+      cx="34%"
+      cy="18%"
+      r="90%">
+      <stop
+        offset="0%"
+        stop-color="#275fff" />
+
+      <stop
+        offset="48%"
+        stop-color="#173ecb" />
+
+      <stop
+        offset="80%"
+        stop-color="#16127e" />
+
+      <stop
+        offset="100%"
+        stop-color="#4a0b93" />
+    </radialGradient>
+
+    <linearGradient
+      id="compactRing"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%">
+      <stop
+        offset="0%"
+        stop-color="#62c8ff" />
+
+      <stop
+        offset="52%"
+        stop-color="#3b73ff" />
+
+      <stop
+        offset="100%"
+        stop-color="#a757ff" />
+    </linearGradient>
+
+    <linearGradient
+      id="compactBanner"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="0%">
+      <stop
+        offset="0%"
+        stop-color="#194ee8" />
+
+      <stop
+        offset="58%"
+        stop-color="#7034e6" />
+
+      <stop
+        offset="100%"
+        stop-color="#d368ff" />
+    </linearGradient>
+
+    <linearGradient
+      id="compactArrow"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%">
+      <stop
+        offset="0%"
+        stop-color="#86efff" />
+
+      <stop
+        offset="55%"
+        stop-color="#3faaff" />
+
+      <stop
+        offset="100%"
+        stop-color="#9e59ff" />
+    </linearGradient>
+
+    <linearGradient
+      id="compactNumber"
+      x1="0%"
+      y1="0%"
+      x2="0%"
+      y2="100%">
+      <stop
+        offset="0%"
+        stop-color="#ffffff" />
+
+      <stop
+        offset="100%"
+        stop-color="#d9dfff" />
+    </linearGradient>
+
+    <filter
+      id="compactShadow"
+      x="-30%"
+      y="-30%"
+      width="160%"
+      height="160%">
+      <feDropShadow
+        dx="0"
+        dy="7"
+        stdDeviation="5"
+        flood-color="#03062b"
+        flood-opacity="0.7" />
+    </filter>
+
+    <filter
+      id="compactGlow"
+      x="-80%"
+      y="-80%"
+      width="260%"
+      height="260%">
+      <feGaussianBlur
+        stdDeviation="2.5"
+        result="blur" />
+
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <clipPath id="compactClip">
+      <circle
+        cx="110"
+        cy="110"
+        r="98" />
+    </clipPath>
+  </defs>
+
+  <circle
+    cx="110"
+    cy="110"
+    r="104"
+    fill="url(#compactRing)"
+    filter="url(#compactShadow)" />
+
+  <circle
+    cx="110"
+    cy="110"
+    r="99"
+    fill="url(#compactBackground)" />
+
+  <circle
+    cx="110"
+    cy="110"
+    r="94"
+    fill="none"
+    stroke="#8abbff"
+    stroke-width="1.2"
+    opacity="0.45" />
+
+  <g clip-path="url(#compactClip)">
+    <g
+      fill="none"
+      stroke="#91b8ff"
+      stroke-width="0.55"
+      opacity="0.28">
+      <path d="M0 136 C36 110 64 155 98 133 C137 108 170 107 220 128" />
+      <path d="M0 142 C37 117 65 161 101 140 C141 115 175 114 220 135" />
+      <path d="M0 148 C38 123 67 169 104 147 C143 122 180 121 220 142" />
+      <path d="M0 155 C39 130 68 175 107 154 C147 129 184 128 220 149" />
+      <path d="M0 162 C40 136 70 182 110 161 C151 136 188 136 220 156" />
+      <path d="M0 169 C41 143 72 190 113 168 C154 143 192 143 220 163" />
+    </g>
+
+    <circle
+      cx="37"
+      cy="77"
+      r="1.4"
+      fill="#8ce8ff"
+      filter="url(#compactGlow)" />
+
+    <circle
+      cx="178"
+      cy="66"
+      r="1.5"
+      fill="#87eaff"
+      filter="url(#compactGlow)" />
+
+    <circle
+      cx="190"
+      cy="118"
+      r="1.2"
+      fill="#bd85ff"
+      filter="url(#compactGlow)" />
+
+    <circle
+      cx="50"
+      cy="174"
+      r="1.4"
+      fill="#8de5ff"
+      filter="url(#compactGlow)" />
+  </g>
+
+  <text
+    x="28"
+    y="139"
+    fill="url(#compactNumber)"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="111"
+    font-weight="900"
+    letter-spacing="-14"
+    filter="url(#compactShadow)">
+    10
+  </text>
+
+  <text
+    x="137"
+    y="102"
+    fill="#70dfff"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="22"
+    font-weight="800"
+    filter="url(#compactShadow)">
+    Years
+  </text>
+
+  <g filter="url(#compactShadow)">
+    <path
+      d="M50 148
+         H153
+         Q159 148 164 153
+         L173 162
+         L164 172
+         Q159 177 153 177
+         H50
+         Q44 177 42 171
+         L38 158
+         Q37 153 41 150
+         Q44 148 50 148
+         Z"
+      fill="url(#compactBanner)"
+      stroke="#79aaff"
+      stroke-width="1.4" />
+
+    <path
+      d="M173 150
+         L198 162
+         L173 177
+         L182 163
+         Z"
+      fill="url(#compactArrow)"
+      stroke="#80beff"
+      stroke-width="1.4" />
+  </g>
+
+  <text
+    x="50"
+    y="169"
+    fill="#ffffff"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="15"
+    font-style="italic"
+    font-weight="800">
+    ReadyPath AI
+  </text>
+</svg>

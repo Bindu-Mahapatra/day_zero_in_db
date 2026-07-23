@@ -1,0 +1,369 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 720 720"
+  role="img"
+  aria-labelledby="title description">
+
+  <title id="title">
+    10 Years ReadyPath AI
+  </title>
+
+  <description id="description">
+    Blue and violet circular anniversary badge with the text 10 Years ReadyPath AI.
+  </description>
+
+  <defs>
+    <radialGradient
+      id="badgeBackground"
+      cx="34%"
+      cy="20%"
+      r="88%">
+      <stop
+        offset="0%"
+        stop-color="#245cff" />
+
+      <stop
+        offset="45%"
+        stop-color="#1439c9" />
+
+      <stop
+        offset="78%"
+        stop-color="#15127d" />
+
+      <stop
+        offset="100%"
+        stop-color="#3b0b91" />
+    </radialGradient>
+
+    <linearGradient
+      id="outerRing"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%">
+      <stop
+        offset="0%"
+        stop-color="#61bdff" />
+
+      <stop
+        offset="48%"
+        stop-color="#3375ff" />
+
+      <stop
+        offset="100%"
+        stop-color="#a755ff" />
+    </linearGradient>
+
+    <linearGradient
+      id="yearsGradient"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%">
+      <stop
+        offset="0%"
+        stop-color="#8cecff" />
+
+      <stop
+        offset="100%"
+        stop-color="#36a7ff" />
+    </linearGradient>
+
+    <linearGradient
+      id="bannerGradient"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="0%">
+      <stop
+        offset="0%"
+        stop-color="#194ee8" />
+
+      <stop
+        offset="55%"
+        stop-color="#6b35e8" />
+
+      <stop
+        offset="100%"
+        stop-color="#d568ff" />
+    </linearGradient>
+
+    <linearGradient
+      id="arrowGradient"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%">
+      <stop
+        offset="0%"
+        stop-color="#7be8ff" />
+
+      <stop
+        offset="50%"
+        stop-color="#3ca8ff" />
+
+      <stop
+        offset="100%"
+        stop-color="#9b59ff" />
+    </linearGradient>
+
+    <linearGradient
+      id="numberGradient"
+      x1="0%"
+      y1="0%"
+      x2="0%"
+      y2="100%">
+      <stop
+        offset="0%"
+        stop-color="#ffffff" />
+
+      <stop
+        offset="62%"
+        stop-color="#f7f8ff" />
+
+      <stop
+        offset="100%"
+        stop-color="#d5dcff" />
+    </linearGradient>
+
+    <filter
+      id="badgeShadow"
+      x="-25%"
+      y="-25%"
+      width="150%"
+      height="150%">
+      <feDropShadow
+        dx="0"
+        dy="18"
+        stdDeviation="18"
+        flood-color="#04071e"
+        flood-opacity="0.58" />
+    </filter>
+
+    <filter
+      id="numberShadow"
+      x="-20%"
+      y="-20%"
+      width="140%"
+      height="150%">
+      <feDropShadow
+        dx="0"
+        dy="11"
+        stdDeviation="8"
+        flood-color="#05083e"
+        flood-opacity="0.8" />
+    </filter>
+
+    <filter
+      id="softGlow"
+      x="-60%"
+      y="-60%"
+      width="220%"
+      height="220%">
+      <feGaussianBlur
+        stdDeviation="8"
+        result="blur" />
+
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <clipPath id="badgeClip">
+      <circle
+        cx="360"
+        cy="360"
+        r="320" />
+    </clipPath>
+  </defs>
+
+  <circle
+    cx="360"
+    cy="360"
+    r="326"
+    fill="url(#outerRing)"
+    filter="url(#badgeShadow)" />
+
+  <circle
+    cx="360"
+    cy="360"
+    r="316"
+    fill="url(#badgeBackground)" />
+
+  <circle
+    cx="360"
+    cy="360"
+    r="304"
+    fill="none"
+    stroke="#79b9ff"
+    stroke-width="2"
+    opacity="0.42" />
+
+  <g clip-path="url(#badgeClip)">
+    <ellipse
+      cx="250"
+      cy="97"
+      rx="268"
+      ry="143"
+      fill="#3d73ff"
+      opacity="0.16" />
+
+    <ellipse
+      cx="450"
+      cy="682"
+      rx="300"
+      ry="148"
+      fill="#7d22ff"
+      opacity="0.2" />
+
+    <g
+      fill="none"
+      stroke="#8db9ff"
+      stroke-width="1.2"
+      opacity="0.32">
+      <path d="M18 465 C128 392 216 516 322 454 C427 393 503 361 700 421" />
+      <path d="M14 478 C131 405 214 530 327 468 C437 407 520 372 708 434" />
+      <path d="M9 491 C124 422 218 543 334 482 C445 424 530 389 715 448" />
+      <path d="M4 504 C121 437 220 557 340 497 C453 440 541 405 720 462" />
+      <path d="M-3 518 C117 451 224 572 347 511 C463 454 553 422 726 477" />
+      <path d="M-10 532 C116 466 226 586 353 526 C472 469 565 439 733 492" />
+      <path d="M-17 547 C111 482 228 600 360 541 C481 486 578 457 739 507" />
+      <path d="M-21 561 C109 499 231 616 367 556 C493 501 591 475 744 522" />
+      <path d="M-28 576 C108 514 234 631 374 572 C501 518 603 493 749 538" />
+    </g>
+
+    <g
+      fill="none"
+      stroke="#aa64ff"
+      stroke-width="1"
+      opacity="0.2">
+      <path d="M45 594 C180 533 265 618 387 567 C501 519 596 534 713 571" />
+      <path d="M37 607 C174 547 272 636 394 583 C515 531 610 549 721 587" />
+      <path d="M31 620 C176 561 278 651 404 599 C529 548 625 563 729 602" />
+      <path d="M24 634 C170 575 286 667 414 614 C542 562 639 578 735 617" />
+    </g>
+
+    <g filter="url(#softGlow)">
+      <circle
+        cx="118"
+        cy="237"
+        r="3"
+        fill="#8de6ff" />
+
+      <circle
+        cx="161"
+        cy="303"
+        r="2.5"
+        fill="#8da8ff" />
+
+      <circle
+        cx="516"
+        cy="217"
+        r="3"
+        fill="#7ee9ff" />
+
+      <circle
+        cx="588"
+        cy="298"
+        r="2.5"
+        fill="#c187ff" />
+
+      <circle
+        cx="623"
+        cy="383"
+        r="3.2"
+        fill="#7fe5ff" />
+
+      <circle
+        cx="559"
+        cy="551"
+        r="2.5"
+        fill="#ba83ff" />
+
+      <circle
+        cx="172"
+        cy="557"
+        r="3"
+        fill="#7ddfff" />
+
+      <circle
+        cx="95"
+        cy="423"
+        r="2.5"
+        fill="#c975ff" />
+    </g>
+
+    <path
+      d="M73 607 C136 547 173 557 216 520"
+      fill="none"
+      stroke="#8b45ff"
+      stroke-width="4"
+      opacity="0.68"
+      filter="url(#softGlow)" />
+  </g>
+
+  <text
+    x="122"
+    y="445"
+    fill="url(#numberGradient)"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="330"
+    font-weight="900"
+    letter-spacing="-38"
+    filter="url(#numberShadow)">
+    10
+  </text>
+
+  <text
+    x="448"
+    y="351"
+    fill="url(#yearsGradient)"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="72"
+    font-weight="800"
+    filter="url(#numberShadow)">
+    Years
+  </text>
+
+  <g filter="url(#numberShadow)">
+    <path
+      d="M178 482
+         H500
+         Q516 482 529 494
+         L559 523
+         L529 555
+         Q516 569 499 569
+         H178
+         Q162 569 157 553
+         L143 511
+         Q139 499 148 490
+         Q158 482 178 482
+         Z"
+      fill="url(#bannerGradient)"
+      stroke="#79a8ff"
+      stroke-width="4" />
+
+    <path
+      d="M560 488
+         L622 523
+         L560 560
+         L582 525
+         Z"
+      fill="url(#arrowGradient)"
+      stroke="#81bfff"
+      stroke-width="4" />
+  </g>
+
+  <text
+    x="185"
+    y="546"
+    fill="#ffffff"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="64"
+    font-style="italic"
+    font-weight="800"
+    letter-spacing="-2">
+    ReadyPath AI
+  </text>
+</svg>

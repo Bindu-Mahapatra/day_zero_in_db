@@ -1,0 +1,150 @@
+﻿<main class="login-page">
+  <section class="brand-panel">
+    <img
+      src="/db-itc-10-years.svg"
+      alt="10 Years Deutsche Bank India Technology Center"
+      class="anniversary-logo" />
+
+    <div class="brand-copy">
+      <span class="brand-label">
+        EMPLOYEE ONBOARDING INTELLIGENCE
+      </span>
+
+      <h1>ReadyPath AI</h1>
+
+      <p>
+        A unified readiness platform that
+        identifies onboarding blockers,
+        clarifies ownership and recommends
+        evidence-backed actions.
+      </p>
+    </div>
+
+    <div class="capability-list">
+      <div>
+        <span>01</span>
+
+        <p>
+          Consolidated readiness across HR,
+          identity, access, technology,
+          training and compliance.
+        </p>
+      </div>
+
+      <div>
+        <span>02</span>
+
+        <p>
+          Clear blocker ownership and
+          traceable supporting evidence.
+        </p>
+      </div>
+
+      <div>
+        <span>03</span>
+
+        <p>
+          Human-controlled AI recommendations
+          and approval workflows.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-panel">
+    <div class="form-container">
+      <header>
+        <img
+          src="/db-itc-10-years-mark.svg"
+          alt=""
+          aria-hidden="true"
+          class="compact-logo" />
+
+        <div>
+          <span>READY PATH AI</span>
+          <strong>Secure access</strong>
+        </div>
+      </header>
+
+      <div class="form-heading">
+        <h2>Sign in</h2>
+
+        <p>
+          Enter your ReadyPath credentials to
+          access your onboarding workspace.
+        </p>
+      </div>
+
+      <form
+        #loginForm="ngForm"
+        (ngSubmit)="signIn()">
+        <label>
+          <span>Username</span>
+
+          <input
+            type="email"
+            name="username"
+            autocomplete="username"
+            placeholder="name@readypath.com"
+            required
+            [(ngModel)]="username" />
+        </label>
+
+        <label>
+          <span>Password</span>
+
+          <div class="password-field">
+            <input
+              [type]="
+                showPassword()
+                  ? 'text'
+                  : 'password'
+              "
+              name="password"
+              autocomplete="current-password"
+              placeholder="Enter password"
+              required
+              [(ngModel)]="password" />
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePassword()">
+              {{
+                showPassword()
+                  ? 'Hide'
+                  : 'Show'
+              }}
+            </button>
+          </div>
+        </label>
+
+        @if (errorMessage()) {
+          <div
+            class="error-message"
+            role="alert">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <button
+          type="submit"
+          class="sign-in-button"
+          [disabled]="loginForm.invalid">
+          Sign in
+        </button>
+      </form>
+
+      <footer>
+        <strong>
+          Deutsche Bank India Technology Center
+        </strong>
+
+        <span>
+          Employee Onboarding Readiness
+          Intelligence
+        </span>
+      </footer>
+    </div>
+  </section>
+</main>

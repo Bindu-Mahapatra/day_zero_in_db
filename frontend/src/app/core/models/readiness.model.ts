@@ -1,4 +1,4 @@
-export type ReadinessStatus =
+﻿export type ReadinessStatus =
   | 'READY'
   | 'ATTENTION'
   | 'CRITICAL'

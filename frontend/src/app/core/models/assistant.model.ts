@@ -1,4 +1,4 @@
-export type AssistantMessageRole =
+﻿export type AssistantMessageRole =
   | 'USER'
   | 'ASSISTANT';
 
@@ -23,6 +23,7 @@ export interface AssistantAction {
   label: string;
   actionType: AssistantActionType;
   joinerId: string;
+  recommendationId?: string;
 }
 
 export interface AssistantMessage {

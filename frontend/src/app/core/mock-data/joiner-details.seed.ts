@@ -1,4 +1,4 @@
-import {
+﻿import {
   AiRecommendation,
   AreaStatus,
   EvidenceRecord,
@@ -127,7 +127,7 @@ function createMayaDetail(
       capturedAt: '17 Jul 2026, 10:12 AM',
       capturedBy: 'HR Profile Adapter',
       description:
-        'Synthetic evidence showing employee, location, role and manager information.'
+        'Readiness  evidence showing employee, location, role and manager information.'
     },
     {
       id: 'EVD-ID-1001',
@@ -192,7 +192,7 @@ function createMayaDetail(
       capturedAt: '19 Jul 2026, 4:05 PM',
       capturedBy: 'Facilities Adapter',
       description:
-        'Physical access has been approved for the joiner’s primary office.'
+        "Physical access has been approved for the joiner's primary office."
     },
     {
       id: 'EVD-TRAINING-1001',
@@ -525,7 +525,7 @@ function createMayaRecommendation(): AiRecommendation {
     evidenceIds: ['EVD-ACCESS-1001'],
     generatedAt: '21 Jul 2026, 4:21 PM',
     disclaimer:
-      'AI-generated recommendation grounded in synthetic evidence. Human approval is required before any action.'
+      'AI-generated recommendation grounded in readiness evidence. Human approval is required before any action.'
   };
 }
 
@@ -642,7 +642,7 @@ function createGenericDetail(
       evidenceIds: [],
       generatedAt: '21 Jul 2026, 5:00 PM',
       disclaimer:
-        'Synthetic recommendation for hackathon demonstration.'
+        'Recommendation generated from readiness records.'
     }
   };
 }

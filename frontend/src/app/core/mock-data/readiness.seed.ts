@@ -1,4 +1,4 @@
-import {
+﻿import {
   BlockerAggregate,
   DepartmentDistribution,
   HrOverviewSnapshot,
@@ -212,37 +212,37 @@ const BLOCKERS: BlockerAggregate[] = [
 
 const TREND: ReadinessTrendPoint[] = [
   {
-    label: '16–22 Jun',
+    label: '16-22 Jun',
     ready: 54,
     attention: 29,
     critical: 10
   },
   {
-    label: '23–29 Jun',
+    label: '23-29 Jun',
     ready: 61,
     attention: 27,
     critical: 9
   },
   {
-    label: '30 Jun–6 Jul',
+    label: '30 Jun-6 Jul',
     ready: 69,
     attention: 26,
     critical: 9
   },
   {
-    label: '7–13 Jul',
+    label: '7-13 Jul',
     ready: 77,
     attention: 25,
     critical: 8
   },
   {
-    label: '14–20 Jul',
+    label: '14-20 Jul',
     ready: 83,
     attention: 26,
     critical: 8
   },
   {
-    label: '21–27 Jul',
+    label: '21-27 Jul',
     ready: 89,
     attention: 27,
     critical: 8
@@ -351,7 +351,7 @@ export function createHrOverview(
       )
       .slice(0, 8),
 
-    lastUpdated: '21 Jul 2026, 5:00 PM IST',
+    lastUpdated: '24 Jul 2026, 10:00 AM IST',
 
     aiInsight: {
       title: 'Readiness deterioration detected',

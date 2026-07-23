@@ -1,75 +1,160 @@
-import { Routes } from '@angular/router';
+﻿import {
+  Routes
+} from '@angular/router';
+
+import {
+  authGuard,
+  roleGuard
+} from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'demo-login'
+    redirectTo: 'login'
   },
   {
-    path: 'demo-login',
+    path: 'login',
     loadComponent: () =>
-      import('./features/demo-login/demo-login.component')
-        .then(module => module.DemoLoginComponent)
+      import(
+        './features/login/login.component'
+      ).then(module => module.Login)
   },
   {
     path: '',
+    canActivate: [
+      authGuard
+    ],
     loadComponent: () =>
-      import('./shell/app-shell/app-shell.component')
-        .then(module => module.AppShellComponent),
+      import(
+        './shell/app-shell/app-shell.component'
+      ).then(module => module.AppShell),
     children: [
       {
         path: 'hr/overview',
+        canActivate: [
+          roleGuard
+        ],
+        data: {
+          roles: ['HR']
+        },
         loadComponent: () =>
-          import('./features/hr/hr-overview/hr-overview.component')
-            .then(module => module.HrOverviewComponent)
+          import(
+            './features/hr/hr-overview/hr-overview.component'
+          ).then(
+            module => module.HrOverviewComponent
+          )
       },
       {
         path: 'hr/joiners',
+        canActivate: [
+          roleGuard
+        ],
+        data: {
+          roles: ['HR']
+        },
         loadComponent: () =>
-          import('./features/hr/joiner-portfolio/joiner-portfolio.component')
-            .then(module => module.JoinerPortfolio)
+          import(
+            './features/hr/joiner-portfolio/joiner-portfolio.component'
+          ).then(
+            module =>
+              module.JoinerPortfolio
+          )
       },
       {
         path: 'hr/joiners/:id',
+        canActivate: [
+          roleGuard
+        ],
+        data: {
+          roles: ['HR']
+        },
         loadComponent: () =>
-            import('./features/manager/joiner-360/joiner-360.component')
-            .then(module => module.Joiner360)
-    },
+          import(
+            './features/manager/joiner-360/joiner-360.component'
+          ).then(
+            module => module.Joiner360
+          )
+      },
       {
         path: 'manager/home',
+        canActivate: [
+          roleGuard
+        ],
+        data: {
+          roles: ['MANAGER']
+        },
         loadComponent: () =>
-          import('./features/manager/manager-home/manager-home.component')
-            .then(module => module.ManagerHome)
+          import(
+            './features/manager/manager-home/manager-home.component'
+          ).then(
+            module => module.ManagerHome
+          )
       },
       {
         path: 'manager/joiners/:id',
+        canActivate: [
+          roleGuard
+        ],
+        data: {
+          roles: ['MANAGER']
+        },
         loadComponent: () =>
-          import('./features/manager/joiner-360/joiner-360.component')
-            .then(module => module.Joiner360)
+          import(
+            './features/manager/joiner-360/joiner-360.component'
+          ).then(
+            module => module.Joiner360
+          )
       },
       {
         path: 'manager/assistant',
+        canActivate: [
+          roleGuard
+        ],
+        data: {
+          roles: ['MANAGER']
+        },
         loadComponent: () =>
-          import('./features/manager/ask-readypath/ask-readypath.component')
-            .then(module => module.AskReadypath)
+          import(
+            './features/manager/ask-readypath/ask-readypath.component'
+          ).then(
+            module => module.AskReadypath
+          )
       },
       {
         path: 'me/home',
+        canActivate: [
+          roleGuard
+        ],
+        data: {
+          roles: ['JOINER']
+        },
         loadComponent: () =>
-          import('./features/joiner/joiner-home/joiner-home.component')
-            .then(module => module.JoinerHome)
+          import(
+            './features/joiner/joiner-home/joiner-home.component'
+          ).then(
+            module => module.JoinerHome
+          )
       },
       {
         path: 'me/journey',
+        canActivate: [
+          roleGuard
+        ],
+        data: {
+          roles: ['JOINER']
+        },
         loadComponent: () =>
-          import('./features/joiner/joiner-journey/joiner-journey.component')
-            .then(module => module.JoinerJourney)
+          import(
+            './features/joiner/joiner-journey/joiner-journey.component'
+          ).then(
+            module => module.JoinerJourney
+          )
       }
     ]
   },
   {
     path: '**',
-    redirectTo: 'demo-login'
+    redirectTo: 'login'
   }
 ];

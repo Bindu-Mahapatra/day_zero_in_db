@@ -1,58 +1,220 @@
-import { Injectable, computed, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { DemoUser, Persona } from '../models/persona.model';
+﻿import {
+  Injectable,
+  computed,
+  signal
+} from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class DemoSessionService {
-  private readonly users: Record<Persona, DemoUser> = {
-    HR: {
+import {
+  DemoUser,
+  Persona
+} from '../models/persona.model';
+
+interface Account {
+  user: DemoUser;
+  password: string;
+}
+
+const STORAGE_KEY =
+  'readypath-authenticated-username';
+
+const ACCOUNTS: Record<string, Account> = {
+  'hr@readypath.com': {
+    password: 'Hr@123',
+
+    user: {
       id: 'hr-001',
+      username: 'hr@readypath.com',
       displayName: 'Priya Mehta',
       roleName: 'HR Business Partner',
       persona: 'HR',
       initials: 'PM'
-    },
-    MANAGER: {
+    }
+  },
+
+  'manager@readypath.com': {
+    password: 'Manager@123',
+
+    user: {
       id: 'manager-001',
-      displayName: 'Bindu Mahapatra',
+      username: 'manager@readypath.com',
+      displayName: 'Arjun Rao',
       roleName: 'Engineering Manager',
       persona: 'MANAGER',
-      initials: 'BM'
-    },
-    JOINER: {
+      initials: 'AR'
+    }
+  },
+
+  'maya.sen@readypath.com': {
+    password: 'Joiner@123',
+
+    user: {
       id: 'joiner-001',
+      username: 'maya.sen@readypath.com',
       displayName: 'Maya Sen',
       roleName: 'TDI Java Engineer',
       persona: 'JOINER',
       initials: 'MS',
       subjectJoinerId: 'J-1001'
     }
-  };
+  }
+};
 
-  readonly currentPersona = signal<Persona>('HR');
+const GUEST_USER: DemoUser = {
+  id: 'guest',
+  username: '',
+  displayName: '',
+  roleName: '',
+  persona: 'HR',
+  initials: ''
+};
 
-  readonly currentUser = computed(
-    () => this.users[this.currentPersona()]
+@Injectable({
+  providedIn: 'root'
+})
+export class DemoSessionService {
+  private readonly userState =
+    signal<DemoUser | null>(
+      this.restoreAuthenticatedUser()
+    );
+
+  readonly authenticatedUser =
+    this.userState.asReadonly();
+
+  readonly isAuthenticated = computed(
+    () => this.userState() !== null
   );
 
-  constructor(private readonly router: Router) {}
+  /**
+   * Protected routes are guarded, so application
+   * components will always receive a real user.
+   */
+  readonly currentUser = computed(
+    () => this.userState() ?? GUEST_USER
+  );
 
-  selectPersona(persona: Persona): void {
-    this.currentPersona.set(persona);
+  readonly currentPersona = computed(
+    () => this.currentUser().persona
+  );
 
-    const routeByPersona: Record<Persona, string> = {
-      HR: '/hr/overview',
-      MANAGER: '/manager/home',
-      JOINER: '/me/home'
-    };
+  login(
+    username: string,
+    password: string
+  ): boolean {
+    const normalizedUsername =
+      username.trim().toLowerCase();
 
-    void this.router.navigateByUrl(routeByPersona[persona]);
+    const account =
+      ACCOUNTS[normalizedUsername];
+
+    if (
+      !account ||
+      account.password !== password
+    ) {
+      return false;
+    }
+
+    this.userState.set(account.user);
+
+    this.writeStoredUsername(
+      account.user.username
+    );
+
+    return true;
   }
 
+  logout(): void {
+    this.userState.set(null);
+
+    const storage =
+      this.getStorage();
+
+    if (storage) {
+      storage.removeItem(
+        STORAGE_KEY
+      );
+    }
+  }
+
+  homeRoute(
+    persona: Persona =
+      this.currentPersona()
+  ): string {
+    switch (persona) {
+      case 'HR':
+        return '/hr/overview';
+
+      case 'MANAGER':
+        return '/manager/home';
+
+      case 'JOINER':
+        return '/me/home';
+    }
+  }
+
+  hasRole(
+    allowedRoles: Persona[]
+  ): boolean {
+    return (
+      this.isAuthenticated() &&
+      allowedRoles.includes(
+        this.currentPersona()
+      )
+    );
+  }
+
+  /**
+   * Retained so older reset calls do not break.
+   */
   reset(): void {
-    this.currentPersona.set('HR');
-    void this.router.navigateByUrl('/demo-login');
+    this.logout();
+  }
+
+  private restoreAuthenticatedUser():
+    DemoUser | null {
+    const storage =
+      this.getStorage();
+
+    if (!storage) {
+      return null;
+    }
+
+    const username =
+      storage.getItem(
+        STORAGE_KEY
+      );
+
+    if (!username) {
+      return null;
+    }
+
+    return ACCOUNTS[username]?.user ??
+      null;
+  }
+
+  private writeStoredUsername(
+    username: string
+  ): void {
+    const storage =
+      this.getStorage();
+
+    if (storage) {
+      storage.setItem(
+        STORAGE_KEY,
+        username
+      );
+    }
+  }
+
+  private getStorage(): Storage | null {
+    if (
+      typeof localStorage === 'undefined' ||
+      typeof localStorage.getItem !== 'function' ||
+      typeof localStorage.setItem !== 'function' ||
+      typeof localStorage.removeItem !== 'function'
+    ) {
+      return null;
+    }
+
+    return localStorage;
   }
 }

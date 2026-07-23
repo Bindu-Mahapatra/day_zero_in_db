@@ -1,20 +1,30 @@
-<div class="application-shell">
+﻿<div class="application-shell">
   <aside class="side-navigation">
-    <div class="brand">
-      <div class="brand-mark">R</div>
+    <a
+      class="brand"
+      [routerLink]="homeRoute()">
+      <img
+        src="/db-itc-10-years-mark.svg"
+        alt="10 Years Deutsche Bank India Technology Center" />
 
       <div>
         <strong>ReadyPath AI</strong>
-        <span>Onboarding Intelligence</span>
-      </div>
-    </div>
 
-    <div class="experience-label">
-      {{ currentPersona() }} EXPERIENCE
+        <span>
+          Onboarding Intelligence
+        </span>
+      </div>
+    </a>
+
+    <div class="workspace-label">
+      {{ currentPersona() }} WORKSPACE
     </div>
 
     <nav aria-label="Primary navigation">
-      @for (item of navigationItems(); track item.route) {
+      @for (
+        item of navigationItems();
+        track item.route
+      ) {
         <a
           [routerLink]="item.route"
           routerLinkActive="active"
@@ -28,61 +38,41 @@
       }
     </nav>
 
-    <div class="synthetic-notice">
-      <strong>Synthetic demonstration</strong>
-      <span>No real employee data</span>
-    </div>
+    <footer class="anniversary-footer">
+      <img
+        src="/db-itc-10-years-mark.svg"
+        alt=""
+        aria-hidden="true" />
 
-    <div class="profile-block">
-      <div class="avatar">
-        {{ currentUser().initials }}
-      </div>
-
-      <div class="profile-copy">
-        <strong>{{ currentUser().displayName }}</strong>
-        <span>{{ currentUser().roleName }}</span>
-      </div>
-    </div>
+      <span>
+        Deutsche Bank India
+        Technology Center
+      </span>
+    </footer>
   </aside>
 
   <section class="workspace">
     <header class="top-bar">
-      <div>
-        <strong>ReadyPath AI</strong>
-        <span class="environment-label">Hackathon MVP</span>
-      </div>
+      <div class="logged-in-user">
+        <div class="avatar">
+          {{ currentUser().initials }}
+        </div>
 
-      <div class="top-bar-actions">
-        <div
-          class="persona-switcher"
-          aria-label="Switch demonstration persona">
-          <button
-            type="button"
-            [class.selected]="currentPersona() === 'HR'"
-            (click)="changePersona('HR')">
-            HR
-          </button>
+        <div class="user-copy">
+          <strong>
+            {{ currentUser().displayName }}
+          </strong>
 
-          <button
-            type="button"
-            [class.selected]="currentPersona() === 'MANAGER'"
-            (click)="changePersona('MANAGER')">
-            Manager
-          </button>
-
-          <button
-            type="button"
-            [class.selected]="currentPersona() === 'JOINER'"
-            (click)="changePersona('JOINER')">
-            New Joiner
-          </button>
+          <span>
+            {{ currentUser().roleName }}
+          </span>
         </div>
 
         <button
           type="button"
-          class="exit-button"
-          (click)="exitDemo()">
-          Exit demo
+          class="logout-button"
+          (click)="logout()">
+          Logout
         </button>
       </div>
     </header>
