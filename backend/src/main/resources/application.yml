@@ -4,12 +4,19 @@ server:
 spring:
   application:
     name: readypath-api
+  profiles:
+    active: default
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
 
 endpoint:
   health:
@@ -20,3 +27,7 @@ info:
     name: ReadyPath AI API
     version: 0.1.0
     description: ReadyPath AI hackathon backend
+
+gemini:
+  model: gemini-3.5-flash
+  api-key: ${GOOGLE_API_KEY:}
