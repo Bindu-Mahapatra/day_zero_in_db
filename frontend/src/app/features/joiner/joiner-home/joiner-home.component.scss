@@ -28,7 +28,7 @@
 
 .eyebrow {
   color: #277d78 !important;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
@@ -49,7 +49,7 @@
 
   span {
     color: #718096;
-    font-size: 8px;
+    font-size: 12px;
     font-weight: 800;
     letter-spacing: 0.08em;
   }
@@ -57,13 +57,13 @@
   strong {
     margin-top: 3px;
     color: #155ec7;
-    font-size: 22px;
+    font-size: 18px;
   }
 
   small {
     margin-top: 2px;
     color: #7d8998;
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 
@@ -131,13 +131,13 @@
   span {
     margin-top: 2px;
     color: #7e8998;
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 
 .section-label {
   color: #277d78;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.09em;
 }
@@ -153,7 +153,7 @@
     max-width: 620px;
     margin: 0;
     color: #627185;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.65;
   }
 
@@ -166,7 +166,7 @@
     color: #176f68;
     background: #ffffff;
     cursor: pointer;
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 800;
   }
 }
@@ -178,7 +178,7 @@
 
   span {
     color: #788597;
-    font-size: 8px;
+    font-size: 12px;
   }
 
   strong {
@@ -208,7 +208,7 @@
   > p {
     margin: 0;
     color: #586d7e;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.6;
   }
 
@@ -221,7 +221,7 @@
     color: #ffffff;
     background: #176f68;
     cursor: pointer;
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 800;
   }
 }
@@ -238,13 +238,13 @@
 
   strong {
     color: #244f4b;
-    font-size: 11px;
+    font-size: 12px;
   }
 
   small {
     margin-top: 2px;
     color: #718b89;
-    font-size: 8px;
+    font-size: 12px;
   }
 }
 
@@ -256,7 +256,7 @@
   border-radius: 50%;
   color: #ffffff;
   background: #24847a;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -264,7 +264,7 @@
   display: block;
   margin-top: 20px;
   color: #25726b;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
 }
@@ -275,7 +275,7 @@
   border-left: 3px solid #2a9a8c;
   color: #466662;
   background: rgb(42 154 140 / 7%);
-  font-size: 8px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -283,7 +283,7 @@
   display: block;
   margin-top: 13px;
   color: #83918f;
-  font-size: 7px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -310,7 +310,7 @@
 
   > div > span {
     color: #627083;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
   }
 
@@ -323,7 +323,7 @@
   > div > small {
     margin-top: 4px;
     color: #8995a4;
-    font-size: 8px;
+    font-size: 12px;
   }
 }
 
@@ -334,7 +334,7 @@
   flex: 0 0 auto;
   place-items: center;
   border-radius: 50%;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
 
   &.complete {
@@ -398,12 +398,12 @@
   p {
     margin: 4px 0 0;
     color: #7b8797;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   > span {
     color: #9a6508;
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 800;
   }
 
@@ -413,7 +413,7 @@
     color: #165dce;
     background: transparent;
     cursor: pointer;
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 800;
   }
 }
@@ -439,7 +439,7 @@
   > p {
     margin: 0;
     color: #768396;
-    font-size: 9px;
+    font-size: 12px;
     line-height: 1.55;
   }
 
@@ -452,7 +452,7 @@
     color: #176f68;
     background: #ffffff;
     cursor: pointer;
-    font-size: 8px;
+    font-size: 12px;
     font-weight: 800;
   }
 }
@@ -467,7 +467,7 @@
 .priority {
   padding: 4px 6px;
   border-radius: 3px;
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -488,13 +488,13 @@
 
 .due-date {
   color: #7d8998;
-  font-size: 8px;
+  font-size: 11px;
 }
 
 .task-area {
   margin-top: 10px;
   color: #8490a0;
-  font-size: 8px;
+  font-size: 11px;
 
   strong {
     color: #56677a;
@@ -531,7 +531,7 @@
   border-radius: 50%;
   color: #4d5f74;
   background: #edf0f4;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -545,13 +545,13 @@
 
   strong {
     color: #405267;
-    font-size: 8px;
+    font-size: 12px;
   }
 
   small {
     margin-top: 3px;
     color: #8490a0;
-    font-size: 7px;
+    font-size: 11px;
   }
 }
 
@@ -584,13 +584,13 @@
   h3 {
     margin: 8px 0 5px;
     color: #3c5067;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   p {
     margin: 0;
     color: #778497;
-    font-size: 9px;
+    font-size: 12px;
     line-height: 1.5;
   }
 
@@ -602,21 +602,21 @@
 
     span {
       color: #8995a4;
-      font-size: 7px;
+      font-size: 12px;
     }
 
     strong {
       display: block;
       margin-top: 2px;
       color: #4e5e72;
-      font-size: 8px;
+      font-size: 12px;
     }
   }
 }
 
 .handled-status {
   color: #175fba;
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -638,13 +638,13 @@
 
   dt {
     color: #8490a0;
-    font-size: 8px;
+    font-size: 11px;
   }
 
   dd {
     margin: 0;
     color: #405267;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
   }
 }
@@ -677,13 +677,13 @@
     max-width: 350px;
     margin: 0;
     color: #7c8999;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   &.compact {
     min-height: 90px;
     color: #687688;
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 
