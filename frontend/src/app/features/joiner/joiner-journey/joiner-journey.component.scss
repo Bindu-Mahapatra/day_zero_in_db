@@ -33,13 +33,13 @@
   color: #165dce;
   background: transparent;
   cursor: pointer;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
 }
 
 .eyebrow {
   color: #277d78 !important;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
@@ -59,7 +59,7 @@
 
   > span {
     color: #718095;
-    font-size: 8px;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.08em;
   }
@@ -73,7 +73,7 @@
   > small {
     margin-top: 5px;
     color: #7e8998;
-    font-size: 8px;
+    font-size: 11px;
   }
 }
 
@@ -105,7 +105,7 @@
     position: relative;
     padding-left: 14px;
     color: #647286;
-    font-size: 8px;
+    font-size: 11px;
 
     &::before {
       width: 8px;
@@ -167,7 +167,7 @@
     p {
       margin: 4px 0 0;
       color: #7a8797;
-      font-size: 9px;
+      font-size: 11px;
     }
   }
 }
@@ -215,7 +215,7 @@
     min-height: 40px;
     margin: 0;
     color: #788597;
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
@@ -227,14 +227,14 @@
 
     span {
       color: #8995a4;
-      font-size: 7px;
+      font-size: 11px;
     }
 
     strong {
       display: block;
       margin-top: 2px;
       color: #4c5d71;
-      font-size: 8px;
+      font-size: 11px;
     }
   }
 }
@@ -254,7 +254,7 @@
   border-radius: 50%;
   color: #4b5f75;
   background: #edf0f4;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -262,7 +262,7 @@
 .selected-status {
   padding: 4px 7px;
   border-radius: 999px;
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -354,7 +354,7 @@
 
   > div > span {
     color: #277d78;
-    font-size: 8px;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.08em;
   }
@@ -369,7 +369,7 @@
 .area-description {
   margin: 12px 0 0;
   color: #68778a;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.6;
 }
 
@@ -393,14 +393,14 @@
 
   dt {
     color: #8995a4;
-    font-size: 7px;
+    font-size: 11px;
     text-transform: uppercase;
   }
 
   dd {
     margin: 4px 0 0;
     color: #44566c;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
   }
 }
@@ -413,20 +413,20 @@
 
   > span {
     color: #98640a;
-    font-size: 7px;
+    font-size: 11px;
     font-weight: 800;
   }
 
   p {
     margin: 5px 0;
     color: #725f3f;
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
   small {
     color: #88785d;
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.5;
   }
 }
@@ -437,7 +437,7 @@
   > h3 {
     margin: 0 0 9px;
     color: #40536a;
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
   }
 }
@@ -462,11 +462,11 @@
 
     span {
       color: #4d5f73;
-      font-size: 8px;
+      font-size: 12px;
     }
 
     strong {
-      font-size: 7px;
+      font-size: 12px;
     }
   }
 }
@@ -499,13 +499,13 @@
   h4 {
     margin: 9px 0 4px;
     color: #41546a;
-    font-size: 9px;
+    font-size: 11px;
   }
 
   > p {
     margin: 0;
     color: #7c8999;
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
@@ -515,7 +515,7 @@
     gap: 10px;
     margin-top: 9px;
     color: #8995a4;
-    font-size: 7px;
+    font-size: 11px;
 
     strong {
       color: #536479;
@@ -531,7 +531,7 @@
     color: #176f68;
     background: #ffffff;
     cursor: pointer;
-    font-size: 8px;
+    font-size: 11px;
     font-weight: 800;
   }
 }
@@ -539,7 +539,7 @@
 .priority {
   padding: 3px 5px;
   border-radius: 3px;
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -560,7 +560,7 @@
 
 .task-status {
   color: #788698;
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -581,13 +581,13 @@
 
     strong {
       color: #40536a;
-      font-size: 9px;
+      font-size: 11px;
     }
 
     small {
       margin-top: 3px;
       color: #8995a4;
-      font-size: 7px;
+      font-size: 11px;
     }
 
     > span {
@@ -602,14 +602,14 @@
   p {
     margin: 9px 0 0;
     color: #68778a;
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
   footer {
     margin-top: 8px;
     color: #939daa;
-    font-size: 7px;
+    font-size: 11px;
   }
 }
 
@@ -631,7 +631,7 @@
 .empty-copy {
   margin: 0;
   color: #8793a2;
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.5;
 }
 

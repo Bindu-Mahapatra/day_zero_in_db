@@ -29,7 +29,7 @@
 
 .eyebrow {
   color: #277d78 !important;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
@@ -62,7 +62,7 @@
   display: grid;
   gap: 3px;
   color: #687385;
-  font-size: 10px;
+  font-size: 11px;
 
   strong {
     color: #26364c;
@@ -123,7 +123,7 @@
   small {
     margin-top: 7px;
     color: #778396;
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 
@@ -188,13 +188,13 @@
   p {
     margin: 5px 0 0;
     color: #758195;
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 
 .panel-meta {
   color: #536277;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -243,7 +243,7 @@
   border-radius: 50%;
   color: #175bbb;
   background: #e6eefc;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -272,7 +272,7 @@
 
 .conversion-value {
   color: #6d7889;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .distribution-content {
@@ -312,7 +312,7 @@
   span {
     margin-top: 2px;
     color: #7a8698;
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 
@@ -338,7 +338,7 @@
 
     span {
       color: #526071;
-      font-size: 10px;
+      font-size: 11px;
     }
 
     strong {
@@ -347,7 +347,7 @@
 
       small {
         color: #8390a1;
-        font-size: 9px;
+        font-size: 11px;
       }
     }
   }
@@ -402,7 +402,7 @@
   strong {
     overflow: hidden;
     color: #34445a;
-    font-size: 10px;
+    font-size: 11px;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -410,14 +410,14 @@
   small {
     margin-top: 3px;
     color: #8792a2;
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 
 .severity-marker {
   padding: 3px 5px;
   border-radius: 3px;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -450,7 +450,7 @@
     position: relative;
     padding-left: 15px;
     color: #667386;
-    font-size: 9px;
+    font-size: 11px;
 
     &::before {
       width: 9px;
@@ -508,7 +508,7 @@
   grid-template-columns: repeat(6, 1fr);
   gap: 4px;
   color: #8590a0;
-  font-size: 8px;
+  font-size: 11px;
   text-align: center;
 }
 
@@ -524,7 +524,7 @@
 
   small {
     color: #758195;
-    font-size: 9px;
+    font-size: 11px;
     text-align: right;
   }
 }
@@ -534,7 +534,7 @@
   display: flex;
   justify-content: space-between;
   color: #435267;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .department-track {
@@ -561,14 +561,14 @@
   p,
   li {
     color: #546779;
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.6;
   }
 
   h3 {
     margin: 16px 0 4px;
     color: #315c59;
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
   }
 
@@ -583,7 +583,7 @@
   border-radius: 3px;
   color: #17675f;
   background: #d8f0ec;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
 }
@@ -597,7 +597,7 @@
   background: #176f68;
   cursor: pointer;
   font: inherit;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -605,7 +605,7 @@
   display: block;
   margin-top: 13px;
   color: #7e8c99;
-  font-size: 8px;
+  font-size: 11px;
 }
 
 .upcoming-panel {
@@ -626,7 +626,7 @@ th {
   padding: 10px;
   border-bottom: 1px solid #dce2e9;
   color: #687587;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   text-align: left;
   text-transform: uppercase;
@@ -636,7 +636,7 @@ td {
   padding: 11px 10px;
   border-bottom: 1px solid #edf0f4;
   color: #425167;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 tbody tr {
@@ -661,13 +661,13 @@ tbody tr {
 
   strong {
     color: #2c3e54;
-    font-size: 10px;
+    font-size: 11px;
   }
 
   small {
     margin-top: 3px;
     color: #8a95a4;
-    font-size: 8px;
+    font-size: 11px;
   }
 }
 
@@ -680,7 +680,7 @@ tbody tr {
   border-radius: 50%;
   color: #0c4e4a;
   background: #d6eeeb;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -692,7 +692,7 @@ tbody tr {
 
   strong {
     color: #34465c;
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 
@@ -713,7 +713,7 @@ tbody tr {
   min-height: 21px;
   padding: 0 7px;
   border-radius: 999px;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -741,7 +741,7 @@ tbody tr {
   display: block;
   margin-top: 3px;
   color: #8b96a5;
-  font-size: 8px;
+  font-size: 11px;
 }
 
 @media (max-width: 1250px) {
