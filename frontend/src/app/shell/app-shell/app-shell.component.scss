@@ -143,41 +143,19 @@ nav {
   backdrop-filter: blur(8px);
 }
 
+.top-bar-spacer {
+  flex: 1 1 auto;
+}
+
 .logged-in-user {
   display: flex;
   align-items: center;
   gap: 10px;
-}
 
-.avatar {
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: #0c4f4a;
-  background: #d5eeea;
-  font-size: 10px;
-  font-weight: 800;
-}
-
-.user-copy {
-  min-width: 145px;
-
-  strong,
   span {
-    display: block;
-  }
-
-  strong {
     color: #283c55;
     font-size: 10px;
-  }
-
-  span {
-    margin-top: 3px;
-    color: #8390a0;
-    font-size: 8px;
+    font-weight: 800;
   }
 }
 
@@ -227,10 +205,6 @@ nav {
 }
 
 @media (max-width: 620px) {
-  .user-copy {
-    display: none;
-  }
-
   .top-bar {
     padding-inline: 15px;
   }

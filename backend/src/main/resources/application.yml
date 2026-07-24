@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: ${SERVER_PORT:${PORT:8081}}
 
 spring:
   application:
@@ -11,12 +11,21 @@ management:
       exposure:
         include: health,info
 
-endpoint:
-  health:
-    show-details: always
+  endpoint:
+    health:
+      show-details: always
 
 info:
   application:
     name: ReadyPath AI API
-    version: 0.1.0
-    description: ReadyPath AI hackathon backend
+    version: 0.2.0
+    description: ReadyPath onboarding intelligence backend
+
+readypath:
+  gemini:
+    enabled: ${READYPATH_GEMINI_ENABLED:true}
+    assistant-enabled: ${READYPATH_GEMINI_ASSISTANT_ENABLED:true}
+    agent-enabled: ${READYPATH_GEMINI_AGENT_ENABLED:true}
+    project-id: ${GOOGLE_CLOUD_PROJECT:hack-team-a-ai-thinker}
+    location: ${GOOGLE_CLOUD_LOCATION:global}
+    model: ${READYPATH_GEMINI_MODEL:gemini-2.5-flash}

@@ -3,9 +3,12 @@
 } from '@angular/router';
 
 import {
-  authGuard,
+  authGuard
+} from './core/auth/auth.guard';
+
+import {
   roleGuard
-} from './core/guards/auth.guard';
+} from './core/auth/role.guard';
 
 export const routes: Routes = [
   {
@@ -18,7 +21,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import(
         './features/login/login.component'
-      ).then(module => module.Login)
+      ).then(
+        module => module.LoginComponent
+      )
   },
   {
     path: '',
@@ -33,6 +38,7 @@ export const routes: Routes = [
       {
         path: 'hr/overview',
         canActivate: [
+          authGuard,
           roleGuard
         ],
         data: {
@@ -48,6 +54,7 @@ export const routes: Routes = [
       {
         path: 'hr/joiners',
         canActivate: [
+          authGuard,
           roleGuard
         ],
         data: {
@@ -64,6 +71,7 @@ export const routes: Routes = [
       {
         path: 'hr/joiners/:id',
         canActivate: [
+          authGuard,
           roleGuard
         ],
         data: {
@@ -79,6 +87,7 @@ export const routes: Routes = [
       {
         path: 'manager/home',
         canActivate: [
+          authGuard,
           roleGuard
         ],
         data: {
@@ -94,6 +103,7 @@ export const routes: Routes = [
       {
         path: 'manager/joiners/:id',
         canActivate: [
+          authGuard,
           roleGuard
         ],
         data: {
@@ -109,6 +119,7 @@ export const routes: Routes = [
       {
         path: 'manager/assistant',
         canActivate: [
+          authGuard,
           roleGuard
         ],
         data: {
@@ -124,6 +135,7 @@ export const routes: Routes = [
       {
         path: 'me/home',
         canActivate: [
+          authGuard,
           roleGuard
         ],
         data: {
@@ -139,6 +151,7 @@ export const routes: Routes = [
       {
         path: 'me/journey',
         canActivate: [
+          authGuard,
           roleGuard
         ],
         data: {

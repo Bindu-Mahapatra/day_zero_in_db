@@ -5,19 +5,23 @@
 } from '@angular/core';
 
 import {
-  Router,
   RouterLink,
   RouterLinkActive,
   RouterOutlet
 } from '@angular/router';
 
 import {
-  Persona
-} from '../../core/models/persona.model';
+  AuthService
+} from '../../core/auth/auth.service';
 
 import {
-  DemoSessionService
-} from '../../core/services/demo-session.service';
+  Persona,
+  homeRouteForPersona
+} from '../../core/auth/auth.models';
+
+import {
+  SessionStoreService
+} from '../../core/auth/session-store.service';
 
 interface NavigationItem {
   label: string;
@@ -82,17 +86,21 @@ const NAVIGATION:
   styleUrl: './app-shell.component.scss'
 })
 export class AppShell {
-  private readonly router =
-    inject(Router);
+  private readonly authService =
+    inject(AuthService);
 
-  readonly session =
-    inject(DemoSessionService);
+  private readonly sessionStore =
+    inject(SessionStoreService);
 
   readonly currentUser =
-    this.session.currentUser;
+    this.sessionStore.user;
 
   readonly currentPersona =
-    this.session.currentPersona;
+    computed(
+      () =>
+        this.currentUser()?.persona ??
+        'HR'
+    );
 
   readonly navigationItems =
     computed(
@@ -105,16 +113,14 @@ export class AppShell {
   readonly homeRoute =
     computed(
       () =>
-        this.session.homeRoute(
+        homeRouteForPersona(
           this.currentPersona()
         )
     );
 
   logout(): void {
-    this.session.logout();
-
-    void this.router.navigateByUrl(
-      '/login'
-    );
+    this.authService
+      .logout()
+      .subscribe();
   }
 }

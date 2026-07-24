@@ -1,22 +1,22 @@
-﻿<main class="login-page">
+<main class="login-page">
   <section class="brand-panel">
     <img
       src="/db-itc-10-years.svg"
       alt="10 Years Deutsche Bank India Technology Center"
-      class="anniversary-logo" />
+      class="anniversary-logo"
+    />
 
     <div class="brand-copy">
       <span class="brand-label">
-        EMPLOYEE ONBOARDING INTELLIGENCE
+        READYPATH AI
       </span>
 
-      <h1>ReadyPath AI</h1>
+      <h1>
+        Onboarding readiness, made visible
+      </h1>
 
       <p>
-        A unified readiness platform that
-        identifies onboarding blockers,
-        clarifies ownership and recommends
-        evidence-backed actions.
+        Sign in to review readiness, blockers, evidence and role-specific actions for every onboarding journey.
       </p>
     </div>
 
@@ -25,9 +25,7 @@
         <span>01</span>
 
         <p>
-          Consolidated readiness across HR,
-          identity, access, technology,
-          training and compliance.
+          HR sees portfolio readiness and risk trends across incoming joiners.
         </p>
       </div>
 
@@ -35,8 +33,7 @@
         <span>02</span>
 
         <p>
-          Clear blocker ownership and
-          traceable supporting evidence.
+          Managers focus on assigned joiners, blockers and approvals.
         </p>
       </div>
 
@@ -44,8 +41,7 @@
         <span>03</span>
 
         <p>
-          Human-controlled AI recommendations
-          and approval workflows.
+          Joiners track their own journey and next steps.
         </p>
       </div>
     </div>
@@ -58,71 +54,86 @@
           src="/db-itc-10-years-mark.svg"
           alt=""
           aria-hidden="true"
-          class="compact-logo" />
+          class="compact-logo"
+        />
 
         <div>
-          <span>READY PATH AI</span>
-          <strong>Secure access</strong>
+          <span>
+            DEUTSCHE BANK ITC
+          </span>
+
+          <strong>
+            ReadyPath AI
+          </strong>
         </div>
       </header>
 
       <div class="form-heading">
-        <h2>Sign in</h2>
+        <h2>
+          Sign in
+        </h2>
 
         <p>
-          Enter your ReadyPath credentials to
-          access your onboarding workspace.
+          Access your onboarding readiness workspace.
         </p>
       </div>
 
       <form
-        #loginForm="ngForm"
-        (ngSubmit)="signIn()">
-        <label>
-          <span>Username</span>
+        [formGroup]="loginForm"
+        (ngSubmit)="submit()"
+        novalidate
+      >
+        <label for="username">
+          <span>
+            Email
+          </span>
 
           <input
+            id="username"
             type="email"
-            name="username"
+            formControlName="username"
             autocomplete="username"
             placeholder="name@readypath.com"
-            required
-            [(ngModel)]="username" />
+          />
         </label>
 
-        <label>
-          <span>Password</span>
+        @if (
+          loginForm.controls.username.touched &&
+          loginForm.controls.username.invalid
+        ) {
+          <p class="field-error">
+            Enter a valid email address.
+          </p>
+        }
 
-          <div class="password-field">
-            <input
-              [type]="
-                showPassword()
-                  ? 'text'
-                  : 'password'
-              "
-              name="password"
-              autocomplete="current-password"
-              placeholder="Enter password"
-              required
-              [(ngModel)]="password" />
+        <label for="password">
+          <span>
+            Password
+          </span>
 
-            <button
-              type="button"
-              class="password-toggle"
-              (click)="togglePassword()">
-              {{
-                showPassword()
-                  ? 'Hide'
-                  : 'Show'
-              }}
-            </button>
-          </div>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+          />
         </label>
+
+        @if (
+          loginForm.controls.password.touched &&
+          loginForm.controls.password.invalid
+        ) {
+          <p class="field-error">
+            Password is required.
+          </p>
+        }
 
         @if (errorMessage()) {
           <div
             class="error-message"
-            role="alert">
+            role="alert"
+          >
             {{ errorMessage() }}
           </div>
         }
@@ -130,19 +141,26 @@
         <button
           type="submit"
           class="sign-in-button"
-          [disabled]="loginForm.invalid">
-          Sign in
+          [disabled]="
+            loginForm.invalid ||
+            loading()
+          "
+        >
+          @if (loading()) {
+            Signing in...
+          } @else {
+            Sign in
+          }
         </button>
       </form>
 
       <footer>
         <strong>
-          Deutsche Bank India Technology Center
+          Role-aware access
         </strong>
 
         <span>
-          Employee Onboarding Readiness
-          Intelligence
+          Your workspace opens after authentication.
         </span>
       </footer>
     </div>

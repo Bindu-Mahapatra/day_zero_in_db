@@ -17,6 +17,11 @@ import {
 } from '../models/assistant.model';
 
 import {
+  API_BASE_URL
+} from '../config/api.config';
+
+import {
+  AgentPlanResponse,
   BackendApprovalRequest,
   BackendApprovalResponse,
   BackendAssistantQueryRequest,
@@ -24,10 +29,6 @@ import {
   BackendAuditEvent,
   BackendHealthResponse
 } from '../models/backend-api.model';
-
-import {
-  Persona
-} from '../models/persona.model';
 
 import {
   ReadinessStoreService
@@ -43,32 +44,25 @@ export class ReadypathBackendService {
   private readonly readinessStore =
     inject(ReadinessStoreService);
 
-  private readonly apiBaseUrl =
-    'http://localhost:8081/api/v1';
-
   private messageSequence = 1;
 
   health(): Observable<BackendHealthResponse> {
     return this.http.get<BackendHealthResponse>(
-      `${this.apiBaseUrl}/health`
+      `${API_BASE_URL}/health`
     );
   }
 
   ask(
-    query: string,
-    persona: Persona,
-    userId: string
+    query: string
   ): Observable<AssistantMessage> {
     const request:
       BackendAssistantQueryRequest = {
-        query,
-        persona,
-        userId
+        query
       };
 
     return this.http
       .post<BackendAssistantResponse>(
-        `${this.apiBaseUrl}/assistant/query`,
+        `${API_BASE_URL}/assistant/query`,
         request
       )
       .pipe(
@@ -78,12 +72,24 @@ export class ReadypathBackendService {
       );
   }
 
+  plan(
+    question: string
+  ): Observable<AgentPlanResponse> {
+    return this.http
+      .post<AgentPlanResponse>(
+        `${API_BASE_URL}/agent/plan`,
+        {
+          question
+        }
+      );
+  }
+
   approveRecommendation(
     request: BackendApprovalRequest
   ): Observable<BackendApprovalResponse> {
     return this.http
       .post<BackendApprovalResponse>(
-        `${this.apiBaseUrl}/actions/approve`,
+        `${API_BASE_URL}/actions/approve`,
         request
       );
   }
@@ -91,7 +97,7 @@ export class ReadypathBackendService {
   getAuditEvents():
     Observable<BackendAuditEvent[]> {
     return this.http.get<BackendAuditEvent[]>(
-      `${this.apiBaseUrl}/audit-events`
+      `${API_BASE_URL}/audit-events`
     );
   }
 

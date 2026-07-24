@@ -250,9 +250,7 @@ export class AskReadypath {
 
     this.backend
       .ask(
-        query,
-        persona,
-        userId
+        query
       )
       .pipe(
         timeout(5000),

@@ -11,8 +11,6 @@ export interface BackendHealthResponse {
 
 export interface BackendAssistantQueryRequest {
   query: string;
-  persona: string;
-  userId: string;
 }
 
 export interface BackendAssistantCitation {
@@ -37,6 +35,10 @@ export interface BackendAssistantResponse {
   citations: BackendAssistantCitation[];
   actions: BackendProposedAction[];
   disclaimer: string;
+}
+
+export interface AgentPlanResponse {
+  [key: string]: unknown;
 }
 
 export interface BackendApprovalRequest {

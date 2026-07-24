@@ -7,27 +7,38 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>backend</artifactId>
+
+  <properties>
+    <spring-ai.version>1.1.8</spring-ai.version>
+    <readypath.jvm.arguments>-Xms64m -Xmx384m -Xss512k -XX:ReservedCodeCacheSize=64m -XX:ActiveProcessorCount=2 -XX:+UseSerialGC -XX:TieredStopAtLevel=1</readypath.jvm.arguments>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring.boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
-      <version>${spring.boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
-      <version>${spring.boot.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.google.genai</groupId>
+        <artifactId>google-genai</artifactId>
+        <version>1.56.0</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <version>${spring.boot.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
   </dependencies>
   <build>
@@ -44,10 +55,10 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory> ${project.build.outputDirectory}/static </outputDirectory>
+              <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
               <resources>
                 <resource>
-                  <directory> ../frontend/dist/frontend/browser </directory>
+                  <directory>../frontend/dist/frontend/browser</directory>
                   <filtering>false</filtering>
                 </resource>
               </resources>
@@ -58,7 +69,9 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring.boot.version}</version>
+        <configuration>
+          <jvmArguments>${readypath.jvm.arguments}</jvmArguments>
+        </configuration>
       </plugin>
     </plugins>
   </build>

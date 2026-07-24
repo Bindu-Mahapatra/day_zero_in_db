@@ -1,77 +1,180 @@
 ﻿import {
   Component,
+  OnInit,
   inject,
   signal
 } from '@angular/core';
 
 import {
-  FormsModule
+  CommonModule
+} from '@angular/common';
+
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators
 } from '@angular/forms';
 
 import {
+  ActivatedRoute,
   Router
 } from '@angular/router';
 
 import {
-  DemoSessionService
-} from '../../core/services/demo-session.service';
+  HttpErrorResponse
+} from '@angular/common/http';
+
+import {
+  finalize
+} from 'rxjs';
+
+import {
+  AuthService
+} from '../../core/auth/auth.service';
+
+import {
+  SessionStoreService
+} from '../../core/auth/session-store.service';
+
+import {
+  homeRouteForPersona
+} from '../../core/auth/auth.models';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    FormsModule
+    CommonModule,
+    ReactiveFormsModule
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl:
+    './login.component.html',
+
+  styleUrl:
+    './login.component.scss'
 })
-export class Login {
+export class LoginComponent
+  implements OnInit {
+
+  private readonly formBuilder =
+    inject(FormBuilder);
+
+  private readonly authService =
+    inject(AuthService);
+
+  private readonly sessionStore =
+    inject(SessionStoreService);
+
   private readonly router =
     inject(Router);
 
-  private readonly session =
-    inject(DemoSessionService);
+  private readonly route =
+    inject(ActivatedRoute);
 
-  username = '';
-  password = '';
-
-  readonly showPassword =
+  readonly loading =
     signal(false);
 
   readonly errorMessage =
     signal('');
 
-  constructor() {
-    if (
-      this.session.isAuthenticated()
-    ) {
-      void this.router.navigateByUrl(
-        this.session.homeRoute()
-      );
-    }
+  readonly loginForm =
+    this.formBuilder.nonNullable.group({
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.email
+        ]
+      ],
+
+      password: [
+        '',
+        [
+          Validators.required
+        ]
+      ]
+    });
+
+  ngOnInit(): void {
+    this.authService
+      .ensureSession()
+      .subscribe(authenticated => {
+        if (!authenticated) {
+          return;
+        }
+
+        const persona =
+          this.sessionStore
+            .user()
+            ?.persona;
+
+        if (persona) {
+          void this.router.navigateByUrl(
+            homeRouteForPersona(
+              persona
+            )
+          );
+        }
+      });
   }
 
-  signIn(): void {
+  submit(): void {
     this.errorMessage.set('');
 
     if (
-      !this.username.trim() ||
-      !this.password
+      this.loginForm.invalid ||
+      this.loading()
     ) {
-      this.errorMessage.set(
-        'Enter your username and password.'
-      );
-
+      this.loginForm.markAllAsTouched();
       return;
     }
 
-    const authenticated =
-      this.session.login(
-        this.username,
-        this.password
-      );
+    this.loading.set(true);
 
-    if (!authenticated) {
+    this.authService
+      .login(
+        this.loginForm.getRawValue()
+      )
+      .pipe(
+        finalize(() => {
+          this.loading.set(false);
+        })
+      )
+      .subscribe({
+        next: response => {
+          const requestedReturnUrl =
+            this.route.snapshot
+              .queryParamMap
+              .get('returnUrl');
+
+          const destination =
+            requestedReturnUrl?.startsWith('/')
+              ? requestedReturnUrl
+              : homeRouteForPersona(
+                  response.user.persona
+                );
+
+          void this.router.navigateByUrl(
+            destination
+          );
+        },
+
+        error: error => {
+          this.handleLoginError(
+            error
+          );
+        }
+      });
+  }
+
+  private handleLoginError(
+    error: unknown
+  ): void {
+    if (
+      error instanceof
+        HttpErrorResponse &&
+      error.status === 401
+    ) {
       this.errorMessage.set(
         'The username or password is incorrect.'
       );
@@ -79,14 +182,8 @@ export class Login {
       return;
     }
 
-    void this.router.navigateByUrl(
-      this.session.homeRoute()
-    );
-  }
-
-  togglePassword(): void {
-    this.showPassword.update(
-      visible => !visible
+    this.errorMessage.set(
+      'ReadyPath could not sign you in. Check that the backend is running and try again.'
     );
   }
 }

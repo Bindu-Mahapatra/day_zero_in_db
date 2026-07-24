@@ -53,28 +53,22 @@
 
   <section class="workspace">
     <header class="top-bar">
-      <div class="logged-in-user">
-        <div class="avatar">
-          {{ currentUser().initials }}
-        </div>
+      <div class="top-bar-spacer"></div>
 
-        <div class="user-copy">
-          <strong>
-            {{ currentUser().displayName }}
-          </strong>
-
+      @if (currentUser(); as user) {
+        <div class="logged-in-user">
           <span>
-            {{ currentUser().roleName }}
+            {{ user.displayName }}
           </span>
-        </div>
 
-        <button
-          type="button"
-          class="logout-button"
-          (click)="logout()">
-          Logout
-        </button>
-      </div>
+          <button
+            type="button"
+            class="logout-button"
+            (click)="logout()">
+            Logout
+          </button>
+        </div>
+      }
     </header>
 
     <main class="page-outlet">
