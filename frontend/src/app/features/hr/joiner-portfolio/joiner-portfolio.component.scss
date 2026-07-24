@@ -28,7 +28,7 @@
 
 .eyebrow {
   color: #277d78 !important;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
@@ -84,7 +84,7 @@
   small {
     margin-top: 5px;
     color: #8490a0;
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 
@@ -106,7 +106,7 @@ button.summary-card {
   border-radius: 50%;
   color: #175bbb;
   background: #e5eefc;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -155,7 +155,7 @@ button.summary-card {
 
     > span {
       color: #5e6b7c;
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
     }
@@ -197,7 +197,7 @@ button.summary-card {
   padding: 0 18px;
   border-bottom: 1px solid #e5e9ef;
   color: #667386;
-  font-size: 10px;
+  font-size: 11px;
 
   strong {
     color: #263a52;
@@ -207,7 +207,7 @@ button.summary-card {
 .active-filter {
   padding: 5px 8px;
   border-radius: 999px;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -227,7 +227,7 @@ th {
   border-bottom: 1px solid #dbe1e8;
   color: #687587;
   background: #f8fafc;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
   text-align: left;
   text-transform: uppercase;
@@ -237,7 +237,7 @@ td {
   padding: 11px 12px;
   border-bottom: 1px solid #edf0f4;
   color: #435267;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 tbody tr {
@@ -262,13 +262,13 @@ tbody tr {
 
   strong {
     color: #2d3f55;
-    font-size: 10px;
+    font-size: 11px;
   }
 
   small {
     margin-top: 3px;
     color: #8995a5;
-    font-size: 8px;
+    font-size: 11px;
   }
 }
 
@@ -292,7 +292,7 @@ tbody tr {
 
   strong {
     color: #35475d;
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 
@@ -316,7 +316,7 @@ tbody tr {
   min-height: 21px;
   padding: 0 7px;
   border-radius: 999px;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -348,14 +348,14 @@ tbody tr {
 .pending-item {
   display: block;
   color: #34465b;
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .pending-owner {
   display: block;
   margin-top: 3px;
   color: #8a95a5;
-  font-size: 8px;
+  font-size: 11px;
 }
 
 .days-cell {
@@ -366,7 +366,7 @@ tbody tr {
   border-radius: 50%;
   color: #46566a;
   background: #edf0f4;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 
   &.urgent {
@@ -383,7 +383,7 @@ tbody tr {
   color: #145cc4;
   background: #ffffff;
   cursor: pointer;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -395,7 +395,7 @@ tbody tr {
   gap: 20px;
   padding: 0 18px;
   color: #697587;
-  font-size: 10px;
+  font-size: 11px;
 
   strong {
     color: #304158;
@@ -415,7 +415,7 @@ tbody tr {
     color: #425268;
     background: #ffffff;
     cursor: pointer;
-    font-size: 9px;
+    font-size: 11px;
 
     &:disabled {
       cursor: not-allowed;
